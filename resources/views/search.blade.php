@@ -13,7 +13,10 @@
         @include('common.header')
         <h1>{{ $title }}</h1>
         <div class="form-area">
-            <form method="GET" action="/search/results">
+            @error('not_found_error')
+            <div class="error-message">{{ $message }}</div>
+            @enderror
+            <form method="GET" action="/search/result">
                 <label>配送番号</label>
                 <input type="text" name="tracking_number">
                 <div class="button-area">

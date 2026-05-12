@@ -16,6 +16,8 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/search', [SearchController::class, 'index']);
 
+Route::get('/search/result', [SearchController::class, 'result']);
+
 Route::get('/registration', [RegistrationController::class, 'index']);
 
 Route::post('/registration/confirm', [RegistrationController::class, 'confirm']);

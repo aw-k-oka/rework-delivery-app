@@ -8,6 +8,7 @@ class Shipments extends Model
 {
     protected $fillable = [
         'tracking_number',
+        'staff_name',
         'client_name',
         'client_address',
         'receiver_name',

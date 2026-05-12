@@ -6,12 +6,20 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <link rel="stylesheet" href="{{ asset('css/search.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
     </head>
     <body>
         @include('common.header')
         <h1>{{ $title }}</h1>
-
-        <p>配送番号：{{ $trackingNumber }}にて承りました</p>
+        <div class="form-area">
+            <form method="GET" action="/search/results">
+                <label>配送番号</label>
+                <input type="text" name="tracking_number">
+                <div class="button-area">
+                    <button class="search-button" type="submit">検索</button>
+                </div>
+            </form>
+        </div>
     </body>
 </html>

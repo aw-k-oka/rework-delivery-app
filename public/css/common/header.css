@@ -1,0 +1,7 @@
+header {
+    display: flex;
+}
+
+.user-name {
+    margin-right: 20px;
+}

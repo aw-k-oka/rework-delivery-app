@@ -7,8 +7,10 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="stylesheet" href="{{ asset('css/confirm.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
     </head>
     <body>
+        @include('common.header')
         <h1>{{$title}}</h1>
 
         <p>ご依頼主</p>

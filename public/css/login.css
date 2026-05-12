@@ -1,0 +1,17 @@
+label {
+    padding-right: 20px;
+}
+
+.form-area {
+    width: 300px;
+    text-align: right;
+}
+
+.button-area {
+    text-align: right;
+}
+
+.error-msg {
+    color: red;
+    font-size: small;
+}

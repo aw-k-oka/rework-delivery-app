@@ -7,8 +7,10 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="stylesheet" href="{{ asset('css/registration.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
     </head>
     <body>
+        @include('common.header')
         <h1>{{ $title }}</h1>
 
         <form method="POST" action="/registration/confirm">

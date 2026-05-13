@@ -4,6 +4,18 @@
     margin-top: 24px;
 }
 
-.short-word {
-    padding: 0 20px;
+.info-row {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
 }
+
+.info-row label {
+    width: 64px;
+    display: inline-block;
+}
+
+.info-row .info-label {
+    text-align: right;
+}
+

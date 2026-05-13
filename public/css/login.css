@@ -4,14 +4,15 @@ label {
 
 .form-area {
     width: 300px;
-    text-align: right;
+}
+
+.user-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
 }
 
 .button-area {
+    margin-top: 24px;
     text-align: right;
-}
-
-.error-msg {
-    color: red;
-    font-size: small;
 }

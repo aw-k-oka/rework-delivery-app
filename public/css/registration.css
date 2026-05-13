@@ -1,7 +1,10 @@
 .must {
     color: red;
+    font-size: small;
+    margin-left: 10px;
 }
 
-.error-msg {
-    color: red;
+.button-area {
+    display: flex;
+    gap: 160px;
 }

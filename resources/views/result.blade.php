@@ -7,27 +7,50 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="stylesheet" href="{{ asset('css/result.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/common/common.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
     </head>
     <body>
         @include('common.header')
-        <h1>{{$title}}</h1>
+        <h1>{{ $title }}</h1>
 
-        <p>配送番号　　　　{{ $shipment->tracking_number }}</p>
+        <section>
+            <div class="info-row">
+                <label>配送番号</label>
+                <span>{{ $shipment->tracking_number }}</span>
+            </div>
+            @auth
+            <div class="info-row">
+                <label>担当者</label>
+                <span>{{ $shipment->staff_name }}</span>
+            </div>
+            <div>
+                <label>ご依頼主</label>
+                <div class="info-row">
+                    <label class="info-label">氏名</label>
+                    <span>{{ $shipment->client_name }}</span>
+                </div>
+                <div class="info-row">
+                    <label class="info-label">住所</label>
+                    <span>{{ $shipment->client_address }}</span>
+                </div>
 
-        @auth
-        <p>担当者　　　　　{{ $shipment->staff_name }}</p>
-
-        <p>ご依頼主</p>
-        <p>　　氏名　　　　{{ $shipment->client_name }}</p>
-        <p>　　住所　　　　{{ $shipment->client_address }}</p>
-        <p>お届け先</p>
-        <p>　　氏名　　　　{{ $shipment->receiver_name }}</p>
-        <p>　　住所　　　　{{ $shipment->receiver_address }}</p>
-        @endauth
-
-        <p>配送状況　　　　{{ $shipment->status }}</p>
-
+                <label>お届け先</label>
+                <div class="info-row">
+                    <label class="info-label">氏名</label>
+                    <span>{{ $shipment->receiver_name }}</span>
+                </div>
+                <div class="info-row">
+                    <label class="info-label">住所</label>
+                    <span>{{ $shipment->receiver_address }}</span>
+                </div>
+            </div>
+            @endauth
+            <div class="info-row">
+                <label>配送状況</label>
+                <span>{{ $shipment->status }}</span>
+            </div>
+        </section>
         <div class="button-area">
             <form action="/search" method="get">
                 <button type="submit" class="short-word">戻る</button>

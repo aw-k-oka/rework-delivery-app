@@ -6,6 +6,7 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <link rel="stylesheet" href="{{ asset('css/common/common.css') }}">
         <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     </head>
     <body>
@@ -16,11 +17,14 @@
             @enderror
             <form method="POST" action="/login">
                 @csrf
-                <label>ID</label>
-                <input type="text" name="login_id">
-                <br>
-                <label>PASS</label>
-                <input type="password" name="login_password">
+                <div class="user-row">
+                    <label>ID</label>
+                    <input type="text" name="login_id">
+                </div>
+                <div class="user-row">
+                    <label>PASS</label>
+                    <input type="password" name="login_password">
+                </div>
                 <div class="button-area">
                     <button class="login-button" type="submit">ログイン</button>
                 </div>

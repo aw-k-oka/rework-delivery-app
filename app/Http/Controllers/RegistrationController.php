@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Shipments;
+use App\Models\Shipment;
 use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
@@ -58,7 +58,7 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-        $shipment = Shipments::create([
+        $shipment = Shipment::create([
             'client_name' => $request->client_name,
             'client_address' => $request->client_address,
             'receiver_name' => $request->receiver_name,

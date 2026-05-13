@@ -1,3 +1,9 @@
-.status-button {
-    margin-left: 20%;
+.button-area {
+    display: grid;
+    grid-template-columns: repeat(3, 90px);
+    margin-top: 24px;
+}
+
+.short-word {
+    padding: 0 20px;
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\TopController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\StatusController;
 
 Route::get('/guest', [TopController::class, 'index']);
 
@@ -23,3 +24,9 @@ Route::get('/registration', [RegistrationController::class, 'index']);
 Route::post('/registration/confirm', [RegistrationController::class, 'confirm']);
 
 Route::post('/registration/complete', [RegistrationController::class, 'store']);
+
+Route::post('/status/deliver', [StatusController::class, 'deliver']);
+
+Route::post('/status/return', [StatusController::class, 'return']);
+
+Route::post('/status/complete', [StatusController::class, 'complete']);

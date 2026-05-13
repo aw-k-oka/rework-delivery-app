@@ -29,11 +29,37 @@
         <p>配送状況　　　　{{ $shipment->status }}</p>
 
         <div class="button-area">
-            <button type="button" onclick="location.href='/search'">戻る</button>
+            <form action="/search" method="get">
+                <button type="submit" class="short-word">戻る</button>
+            </form>
             @auth
-            <button type="button" class="status-button">
-                配送
-            </button>
+            @if ($shipment->status === '営業所')
+            <!-- レイアウト調整のための空要素 -->
+            <div></div>
+            <form method="POST" action="/status/deliver">
+                @csrf
+                <input type="hidden" name="id" value="{{ $shipment->id }}">
+                <button type="submit" class="status-button short-word">
+                    配送
+                </button>
+            </form>
+            @endif
+            @if ($shipment->status === '配送中')
+            <form method="POST" action="/status/return">
+                @csrf
+                <input type="hidden" name="id" value="{{ $shipment->id }}">
+                <button type="submit" class="status-button" @if ($shipment->staff_name !== Auth::user()?->name) disabled @endif>
+                    持ち帰り
+                </button>
+            </form>
+            <form method="POST" action="/status/complete">
+                @csrf
+                <input type="hidden" name="id" value="{{ $shipment->id }}">
+                <button type="submit" class="status-button" @if ($shipment->staff_name !== Auth::user()?->name) disabled @endif>
+                    配達済み
+                </button>
+            </form>
+            @endif
             @endauth
         </div>
     </body>

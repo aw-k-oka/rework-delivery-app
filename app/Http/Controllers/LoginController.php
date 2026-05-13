@@ -2,25 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
+/**
+ * ログインに関する処理を行うコントローラー
+ */
 class LoginController extends Controller
 {
-    public function index()
+    /**
+     * ログイン画面を表示
+     * @return View ログイン画面
+     */
+    public function index(): View
     {
-        $title = 'ログイン画面';
-
         return view('login', [
-            'title' => $title,
+            'title' => 'ログイン画面',
         ]);
     }
 
     /**
      * ログイン処理
      * @param Request $request POSTで送られるリクエスト
+     * @return RedirectResponse|Response
      */
-    public function login(Request $request)
+    public function login(Request $request): RedirectResponse|Response
     {
         $credentials = [
             'login_id' => $request->login_id,
@@ -39,8 +48,9 @@ class LoginController extends Controller
     /**
      * ログアウト処理
      * @param Request $request POSTで送られるリクエスト
+     * @return RedirectResponse
      */
-    public function logout(Request $request)
+    public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
         $request->session()->invalidate();

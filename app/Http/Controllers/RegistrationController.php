@@ -4,26 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Shipment;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
+/**
+ * 配送依頼に関する処理を行うコントローラー
+ */
 class RegistrationController extends Controller
 {
     /**
      * ページ表示
+     * @return View 配送依頼画面
      */
-    public function index()
+    public function index(): View
     {
-        $title = '配送依頼画面';
-
         return view('registration', [
-            'title' => $title,
+            'title' => '配送依頼画面',
         ]);
     }
 
     /**
-     * 依頼確認画面に遷移
+     * 依頼確認画面を表示
      * @param Request $request POSTで送られるリクエスト
+     * @return View 依頼確認画面
      */
-    public function confirm(Request $request)
+    public function confirm(Request $request): View
     {
         $request->validate(
             [
@@ -55,18 +59,19 @@ class RegistrationController extends Controller
     /**
      * 配送データをDBに登録
      * @param Request $request POSTで送られるリクエスト
+     * @return View 登録完了画面
      */
-    public function store(Request $request)
+    public function store(Request $request): View
     {
         $shipment = Shipment::create([
             'client_name' => $request->client_name,
             'client_address' => $request->client_address,
             'receiver_name' => $request->receiver_name,
             'receiver_address' => $request->receiver_address,
-            'status' => '営業所',
+            'status' => Shipment::STATUS_OFFICE,
         ]);
 
-        $trackingNumber = str_pad($shipment->id, 6, '0', STR_PAD_LEFT);
+        $trackingNumber = str_pad($shipment->id, Shipment::TRACKING_NUMBER_DIGITS, '0', STR_PAD_LEFT);
         $shipment->tracking_number = $trackingNumber;
         $shipment->save();
 

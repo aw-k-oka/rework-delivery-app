@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 配送情報モデル
+ */
 class Shipment extends Model
 {
     /**
@@ -12,6 +15,11 @@ class Shipment extends Model
     public const STATUS_OFFICE = '営業所';
     public const STATUS_DELIVERING = '配送中';
     public const STATUS_COMPLETED = '配達済み';
+
+    /**
+     * 配送番号の桁数
+     */
+    public const TRACKING_NUMBER_DIGITS = 6;
 
     /**
      * 一括代入許可カラム

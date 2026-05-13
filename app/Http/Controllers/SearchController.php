@@ -3,29 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shipment;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
+/**
+ * 配送情報の検索に関する処理を行うコントローラー
+ */
 class SearchController extends Controller
 {
     /**
      * ページ表示
+     * @return View 配送情報検索画面
      */
-    public function index()
+    public function index(): View
     {
-        $title = '配送情報検索画面';
-
         return view('search', [
-            'title' => $title,
+            'title' => '配送情報検索画面',
         ]);
     }
 
     /**
      * 検索結果表示
+     * @param Request $request POSTで送られるリクエスト
+     * @return View|RedirectResponse
      */
-    public function result(Request $request)
+    public function result(Request $request): View|RedirectResponse
     {
-        $title = '配送情報検索結果';
-
         $shipment = Shipment::firstWhere('tracking_number', $request->tracking_number);
 
         if (!$shipment) {
@@ -33,7 +37,7 @@ class SearchController extends Controller
         }
 
         return view('result', [
-            'title' => $title,
+            'title' => '配送情報検索結果',
             'shipment' => $shipment,
         ]);
     }

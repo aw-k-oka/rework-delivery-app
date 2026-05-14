@@ -42,7 +42,6 @@ class Shipment extends Model
     {
         $this->status = self::STATUS_DELIVERING;
         $this->staff_name = $staffName;
-        $this->save();
     }
 
     /**
@@ -52,7 +51,6 @@ class Shipment extends Model
     {
         $this->status = self::STATUS_OFFICE;
         $this->staff_name = null;
-        $this->save();
     }
 
     /**
@@ -61,6 +59,5 @@ class Shipment extends Model
     public function completeDelivery(): void
     {
         $this->status = self::STATUS_COMPLETED;
-        $this->save();
     }
 }

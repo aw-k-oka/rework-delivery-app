@@ -23,6 +23,7 @@ class StatusController extends Controller
             return back();
         }
         $shipment->startDelivery(Auth::user()->name);
+        $shipment->save();
 
         return redirect('/search/result?tracking_number=' . $shipment->tracking_number);
     }
@@ -40,6 +41,7 @@ class StatusController extends Controller
             return back();
         }
         $shipment->returnToOffice();
+        $shipment->save();
 
         return back();
     }
@@ -57,6 +59,7 @@ class StatusController extends Controller
             return back();
         }
         $shipment->completeDelivery();
+        $shipment->save();
 
         return back();
     }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class LoginController extends Controller
      */
     public function index(): View
     {
-        return view('login', [
+        return view('auth.login', [
             'title' => 'ログイン画面',
         ]);
     }

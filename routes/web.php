@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Shipment\RegistrationController;
+use App\Http\Controllers\Shipment\SearchController;
+use App\Http\Controllers\Shipment\StatusController;
 use App\Http\Controllers\TopController;
-use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\StatusController;
 
 Route::get('/guest', [TopController::class, 'index']);
 

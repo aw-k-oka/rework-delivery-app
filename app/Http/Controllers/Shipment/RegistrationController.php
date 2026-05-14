@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shipment;
 
+use App\Http\Controllers\Controller;
 use App\Models\Shipment;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -17,7 +18,7 @@ class RegistrationController extends Controller
      */
     public function index(): View
     {
-        return view('registration', [
+        return view('shipment.registration.index', [
             'title' => '配送依頼画面',
         ]);
     }
@@ -47,7 +48,7 @@ class RegistrationController extends Controller
                 'receiver_address.max' => 'お届け先住所は50文字以内で入力してください。',
             ]
         );
-        return view('confirm', [
+        return view('shipment.registration.confirm', [
             'title' => '依頼確認画面',
             'clientName' => $request->client_name,
             'clientAddress' => $request->client_address,
@@ -75,7 +76,7 @@ class RegistrationController extends Controller
         $shipment->tracking_number = $trackingNumber;
         $shipment->save();
 
-        return view('complete', [
+        return view('shipment.registration.complete', [
             'title' => '登録完了画面',
             'trackingNumber' => $shipment->tracking_number,
         ]);

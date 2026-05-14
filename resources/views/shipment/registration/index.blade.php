@@ -8,7 +8,7 @@
 
         <link rel="stylesheet" href="{{ asset('css/common/common.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/registration.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/shipment/registration/index.css') }}">
     </head>
     <body>
         @include('common.header')

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shipment;
 
+use App\Http\Controllers\Controller;
 use App\Models\Shipment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class SearchController extends Controller
      */
     public function index(): View
     {
-        return view('search', [
+        return view('shipment.search.index', [
             'title' => '配送情報検索画面',
         ]);
     }
@@ -36,7 +37,7 @@ class SearchController extends Controller
             return back()->withErrors(['not_found_error' => '該当する配送情報が見つかりません。']);
         }
 
-        return view('result', [
+        return view('shipment.search.result', [
             'title' => '配送情報検索結果',
             'shipment' => $shipment,
         ]);

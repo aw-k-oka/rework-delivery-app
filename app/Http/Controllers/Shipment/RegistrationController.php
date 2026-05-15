@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Shipment;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Shipment\StoreShipmentRequest;
 use App\Models\Shipment;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
@@ -14,7 +14,7 @@ class RegistrationController extends Controller
 {
     /**
      * ページ表示
-     * @return View 配送依頼画面
+     * @return View 配送依頼入力画面
      */
     public function index(): View
     {
@@ -23,29 +23,11 @@ class RegistrationController extends Controller
 
     /**
      * 依頼確認画面を表示
-     * @param Request $request POSTで送られるリクエスト
+     * @param StoreShipmentRequest $request バリデーション済みリクエスト
      * @return View 依頼確認画面
      */
-    public function confirm(Request $request): View
+    public function confirm(StoreShipmentRequest $request): View
     {
-        $request->validate(
-            [
-                'client_name' => ['required', 'max:30'],
-                'client_address' => ['required', 'max:50'],
-                'receiver_name' => ['required', 'max:30'],
-                'receiver_address' => ['required', 'max:50'],
-            ],
-            [
-                'client_name.required' => 'ご依頼主名は必須です。',
-                'client_name.max' => 'ご依頼主名は30文字以内で入力してください。',
-                'client_address.required' => 'ご依頼主住所は必須です。',
-                'client_address.max' => 'ご依頼主住所は50文字以内で入力してください。',
-                'receiver_name.required' => 'お届け先氏名は必須です。',
-                'receiver_name.max' => 'お届け先氏名は30文字以内で入力してください。',
-                'receiver_address.required' => 'お届け先住所は必須です。',
-                'receiver_address.max' => 'お届け先住所は50文字以内で入力してください。',
-            ]
-        );
         return view('shipment.registration.confirm', [
             'clientName' => $request->client_name,
             'clientAddress' => $request->client_address,
@@ -56,10 +38,10 @@ class RegistrationController extends Controller
 
     /**
      * 配送データをDBに登録
-     * @param Request $request POSTで送られるリクエスト
+     * @param StoreShipmentRequest $request バリデーション済みリクエスト
      * @return View 登録完了画面
      */
-    public function store(Request $request): View
+    public function store(StoreShipmentRequest $request): View
     {
         $shipment = Shipment::create([
             'client_name' => $request->client_name,
@@ -69,7 +51,7 @@ class RegistrationController extends Controller
             'status' => Shipment::STATUS_OFFICE,
         ]);
 
-        $shipment->tracking_number = str_pad($shipment->id, Shipment::TRACKING_NUMBER_DIGITS, '0', STR_PAD_LEFT);
+        $shipment->generateTrackingNumber();
         $shipment->save();
 
         return view('shipment.registration.complete', [

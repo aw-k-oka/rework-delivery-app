@@ -35,6 +35,14 @@ class Shipment extends Model
     ];
 
     /**
+     * 配送番号をIDから自動生成して設定
+     */
+    public function generateTrackingNumber(): void
+    {
+        $this->tracking_number = str_pad($this->id, self::TRACKING_NUMBER_DIGITS, '0', STR_PAD_LEFT);
+    }
+
+    /**
      * 荷物を配送中ステータスに変更
      * @param string $staffName 配送担当者名前
      */

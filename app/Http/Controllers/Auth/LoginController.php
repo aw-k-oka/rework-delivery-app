@@ -20,9 +20,7 @@ class LoginController extends Controller
      */
     public function index(): View
     {
-        return view('auth.login', [
-            'title' => 'ログイン画面',
-        ]);
+        return view('auth.login');
     }
 
     /**

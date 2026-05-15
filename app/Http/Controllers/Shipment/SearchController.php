@@ -19,9 +19,7 @@ class SearchController extends Controller
      */
     public function index(): View
     {
-        return view('shipment.search.index', [
-            'title' => '配送情報検索画面',
-        ]);
+        return view('shipment.search.index');
     }
 
     /**
@@ -38,7 +36,6 @@ class SearchController extends Controller
         }
 
         return view('shipment.search.result', [
-            'title' => '配送情報検索結果',
             'shipment' => $shipment,
         ]);
     }

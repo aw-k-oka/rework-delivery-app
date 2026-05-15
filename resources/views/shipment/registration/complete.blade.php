@@ -10,8 +10,6 @@
     </head>
     <body>
         @include('common.header')
-        <h1>{{ $title }}</h1>
-
         <p>配送番号：{{ $trackingNumber }}にて承りました</p>
     </body>
 </html>

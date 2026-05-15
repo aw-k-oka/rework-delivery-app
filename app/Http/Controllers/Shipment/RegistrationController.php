@@ -18,9 +18,7 @@ class RegistrationController extends Controller
      */
     public function index(): View
     {
-        return view('shipment.registration.index', [
-            'title' => '配送依頼画面',
-        ]);
+        return view('shipment.registration.index');
     }
 
     /**
@@ -49,7 +47,6 @@ class RegistrationController extends Controller
             ]
         );
         return view('shipment.registration.confirm', [
-            'title' => '依頼確認画面',
             'clientName' => $request->client_name,
             'clientAddress' => $request->client_address,
             'receiverName' => $request->receiver_name,
@@ -77,7 +74,6 @@ class RegistrationController extends Controller
         $shipment->save();
 
         return view('shipment.registration.complete', [
-            'title' => '登録完了画面',
             'trackingNumber' => $shipment->tracking_number,
         ]);
     }

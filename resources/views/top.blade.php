@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
     </head>
     <body>
-        <h1>{{ $title }}</h1>
+        <p>{{ $greeting }}</p>
         <div class="button-area">
             <button onclick="location.href='/search'">配送状況確認</button>
             <button onclick="location.href='/registration'" class="middle-word">配送依頼</button>

@@ -12,8 +12,6 @@
     </head>
     <body>
         @include('common.header')
-        <h1>{{ $title }}</h1>
-
         <section>
             <div class="info-row">
                 <label>配送番号</label>

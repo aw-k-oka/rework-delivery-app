@@ -12,7 +12,6 @@
     </head>
     <body>
         @include('common.header')
-        <h1>{{ $title }}</h1>
         <section>
             <label>ご依頼主</label>
             <div class="form-row">

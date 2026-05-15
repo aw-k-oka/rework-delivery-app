@@ -12,8 +12,6 @@
     </head>
     <body>
         @include('common.header')
-        <h1>{{ $title }}</h1>
-
         <form method="POST" action="/registration/confirm">
             @csrf
             <section>

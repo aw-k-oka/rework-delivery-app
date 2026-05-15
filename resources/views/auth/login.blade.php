@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="{{ asset('css/auth/login.css') }}">
     </head>
     <body>
-        <h1>{{ $title }}</h1>
         <div class="form-area">
             @error('login_error')
             <p class="error-msg">{{ $message }}</p>

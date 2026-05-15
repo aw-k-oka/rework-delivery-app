@@ -12,7 +12,6 @@
     </head>
     <body>
         @include('common.header')
-        <h1>{{ $title }}</h1>
         <div class="form-area">
             @error('not_found_error')
             <p class="error-msg">{{ $message }}</p>

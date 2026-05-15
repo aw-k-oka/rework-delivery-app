@@ -50,14 +50,14 @@
             </div>
         </section>
         <div class="button-area">
-            <form action="/search" method="get">
+            <form action="{{ route('shipment.search.index') }}" method="get">
                 <button type="submit" class="short-word">戻る</button>
             </form>
             @auth
             @if ($shipment->status === '営業所')
             <!-- レイアウト調整のための空要素 -->
             <div></div>
-            <form method="POST" action="/status/deliver">
+            <form method="POST" action="{{ route('shipment.status.deliver') }}">
                 @csrf
                 <input type="hidden" name="id" value="{{ $shipment->id }}">
                 <button type="submit" class="status-button short-word">
@@ -66,14 +66,14 @@
             </form>
             @endif
             @if ($shipment->status === '配送中')
-            <form method="POST" action="/status/return">
+            <form method="POST" action="{{ route('shipment.status.backToOffice') }}">
                 @csrf
                 <input type="hidden" name="id" value="{{ $shipment->id }}">
                 <button type="submit" class="status-button" @if ($shipment->staff_name !== Auth::user()?->name) disabled @endif>
                     持ち帰り
                 </button>
             </form>
-            <form method="POST" action="/status/complete">
+            <form method="POST" action="{{ route('shipment.status.complete') }}">
                 @csrf
                 <input type="hidden" name="id" value="{{ $shipment->id }}">
                 <button type="submit" class="status-button" @if ($shipment->staff_name !== Auth::user()?->name) disabled @endif>

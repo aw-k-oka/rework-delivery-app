@@ -18,14 +18,13 @@ class StatusController extends Controller
     public function deliver(Request $request): RedirectResponse
     {
         $shipment = Shipment::find($request->id);
-        // 不正な操作が行われた時は何もしない
         if (!$shipment || !$shipment->canStartDelivery()) {
             return back();
         }
         $shipment->startDelivery(Auth::user()->name);
         $shipment->save();
 
-        return redirect('/search/result?tracking_number=' . $shipment->tracking_number);
+        return $this->redirectToSearchResult($shipment);
     }
 
     /**
@@ -33,17 +32,16 @@ class StatusController extends Controller
      * @param Request $request POSTで送られるリクエスト
      * @return RedirectResponse 配送情報検索結果画面へリダイレクト
      */
-    public function return(Request $request): RedirectResponse
+    public function backToOffice(Request $request): RedirectResponse
     {
         $shipment = Shipment::find($request->id);
-        // 不正な操作が行われた時は何もしない
         if (!$shipment || !$shipment->canChangeStatus(Auth::user()->name)) {
             return back();
         }
         $shipment->returnToOffice();
         $shipment->save();
 
-        return back();
+        return $this->redirectToSearchResult($shipment);
     }
 
     /**
@@ -54,13 +52,22 @@ class StatusController extends Controller
     public function complete(Request $request): RedirectResponse
     {
         $shipment = Shipment::find($request->id);
-        // 不正な操作が行われた時は何もしない
         if (!$shipment || !$shipment->canChangeStatus(Auth::user()->name)) {
             return back();
         }
         $shipment->completeDelivery();
         $shipment->save();
 
-        return back();
+        return $this->redirectToSearchResult($shipment);
+    }
+
+    /**
+     * 検索結果画面へリダイレクト
+     * @param Shipment $shipment 配送情報
+     * @return RedirectResponse
+     */
+    private function redirectToSearchResult(Shipment $shipment): RedirectResponse
+    {
+        return redirect()->route('shipment.search.result', ['tracking_number' => $shipment->tracking_number]);
     }
 }

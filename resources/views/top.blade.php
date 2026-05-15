@@ -12,8 +12,8 @@
     <body>
         <p>{{ $greeting }}</p>
         <div class="button-area">
-            <button onclick="location.href='/search'">配送状況確認</button>
-            <button onclick="location.href='/registration'" class="middle-word">配送依頼</button>
+            <button onclick="location.href='{{ route('shipment.search.index') }}'">配送状況確認</button>
+            <button onclick="location.href='{{ route('shipment.registration.index') }}'" class="middle-word">配送依頼</button>
         </div>
     </body>
 </html>

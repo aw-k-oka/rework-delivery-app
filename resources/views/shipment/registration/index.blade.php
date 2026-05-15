@@ -12,7 +12,7 @@
     </head>
     <body>
         @include('common.header')
-        <form method="POST" action="/registration/confirm">
+        <form method="POST" action="{{ route('shipment.registration.confirm') }}">
             @csrf
             <section>
                 <label>ご依頼主</label>
@@ -50,7 +50,7 @@
                 </div>
             </section>
             <div class="button-area">
-                <button class="short-word" type="button" onclick="location.href='/guest'">戻る</button>
+                <button class="short-word" type="button" onclick="location.href='{{ route('top') }}'">戻る</button>
                 <button class="short-word" type="submit">確認</button>
             </div>
         </form>

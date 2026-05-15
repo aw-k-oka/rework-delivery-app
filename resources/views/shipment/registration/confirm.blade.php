@@ -35,14 +35,14 @@
             </div>
         </section>
         <div class="button-area">
-            <form method="GET" action="/registration">
+            <form method="GET" action="{{ route('shipment.registration.index') }}">
                 <input type="hidden" name="client_name" value="{{ $clientName }}">
                 <input type="hidden" name="client_address" value="{{ $clientAddress }}">
                 <input type="hidden" name="receiver_name" value="{{ $receiverName }}">
                 <input type="hidden" name="receiver_address" value="{{ $receiverAddress }}">
                 <button type="submit" class="short-word">戻る</button>
             </form>
-            <form method="POST" action="/registration/complete">
+            <form method="POST" action="{{ route('shipment.registration.complete') }}">
                 @csrf
                 <input type="hidden" name="client_name" value="{{ $clientName }}">
                 <input type="hidden" name="client_address" value="{{ $clientAddress }}">

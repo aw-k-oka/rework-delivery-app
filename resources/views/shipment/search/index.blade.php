@@ -16,7 +16,7 @@
             @error('not_found_error')
             <p class="error-msg">{{ $message }}</p>
             @enderror
-            <form method="GET" action="/search/result">
+            <form method="GET" action="{{ route('shipment.search.result') }}">
                 <label>配送番号</label>
                 <input type="text" name="tracking_number">
                 <div class="button-area">

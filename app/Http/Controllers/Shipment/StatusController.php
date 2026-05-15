@@ -19,7 +19,7 @@ class StatusController extends Controller
     {
         $shipment = Shipment::find($request->id);
         // 不正な操作が行われた時は何もしない
-        if (!$shipment || $shipment->status !== Shipment::STATUS_OFFICE) {
+        if (!$shipment || !$shipment->canStartDelivery()) {
             return back();
         }
         $shipment->startDelivery(Auth::user()->name);
@@ -37,7 +37,7 @@ class StatusController extends Controller
     {
         $shipment = Shipment::find($request->id);
         // 不正な操作が行われた時は何もしない
-        if (!$shipment || $shipment->status !== Shipment::STATUS_DELIVERING || $shipment->staff_name !== Auth::user()->name) {
+        if (!$shipment || !$shipment->canChangeStatus(Auth::user()->name)) {
             return back();
         }
         $shipment->returnToOffice();
@@ -55,7 +55,7 @@ class StatusController extends Controller
     {
         $shipment = Shipment::find($request->id);
         // 不正な操作が行われた時は何もしない
-        if (!$shipment || $shipment->status !== Shipment::STATUS_DELIVERING || $shipment->staff_name !== Auth::user()->name) {
+        if (!$shipment || !$shipment->canChangeStatus(Auth::user()->name)) {
             return back();
         }
         $shipment->completeDelivery();

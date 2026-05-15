@@ -43,6 +43,25 @@ class Shipment extends Model
     }
 
     /**
+     * 配送開始可能か
+     * @return bool
+     */
+    public function canStartDelivery(): bool
+    {
+        return $this->status === self::STATUS_OFFICE;
+    }
+
+    /**
+     * ステータス変更可能か
+     * @param string $staffName 担当者名
+     * @return bool
+     */
+    public function canChangeStatus(string $staffName): bool
+    {
+        return $this->status === self::STATUS_DELIVERING && $this->staff_name === $staffName;
+    }
+
+    /**
      * 荷物を配送中ステータスに変更
      * @param string $staffName 配送担当者名前
      */

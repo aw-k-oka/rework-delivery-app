@@ -69,8 +69,7 @@ class RegistrationController extends Controller
             'status' => Shipment::STATUS_OFFICE,
         ]);
 
-        $trackingNumber = str_pad($shipment->id, Shipment::TRACKING_NUMBER_DIGITS, '0', STR_PAD_LEFT);
-        $shipment->tracking_number = $trackingNumber;
+        $shipment->tracking_number = str_pad($shipment->id, Shipment::TRACKING_NUMBER_DIGITS, '0', STR_PAD_LEFT);
         $shipment->save();
 
         return view('shipment.registration.complete', [

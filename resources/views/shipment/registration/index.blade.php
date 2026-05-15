@@ -50,7 +50,7 @@
                 </div>
             </section>
             <div class="button-area">
-                <button class="short-word" type="button" onclick="location.href='/'">戻る</button>
+                <button class="short-word" type="button" onclick="location.href='/guest'">戻る</button>
                 <button class="short-word" type="submit">確認</button>
             </div>
         </form>

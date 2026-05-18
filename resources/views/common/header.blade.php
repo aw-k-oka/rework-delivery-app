@@ -1,9 +1,10 @@
 <header class="header">
     <div class="user-name">
+        ユーザー名：
         @auth
-        ユーザー名：{{ Auth::user()->name }}
+        {{ Auth::user()->name }}
         @else
-        ユーザー名：ゲスト
+        ゲスト
         @endauth
     </div>
     @auth

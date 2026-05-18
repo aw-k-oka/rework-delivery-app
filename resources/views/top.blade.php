@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
     </head>
     <body>
-        <p>{{ $greeting }}</p>
+        <p>ゲストさん、ようこそ！</p>
         <div class="button-area">
             <button onclick="location.href='{{ route('shipment.search.index') }}'">配送状況確認</button>
             <button onclick="location.href='{{ route('shipment.registration.index') }}'" class="middle-word">配送依頼</button>

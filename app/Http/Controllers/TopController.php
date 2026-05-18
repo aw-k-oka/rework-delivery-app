@@ -15,8 +15,6 @@ class TopController extends Controller
      */
     public function index(): View
     {
-        return view('top', [
-            'greeting' => 'ゲストさん、ようこそ！',
-        ]);
+        return view('top');
     }
 }

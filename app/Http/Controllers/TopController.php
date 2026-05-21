@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -10,11 +11,17 @@ use Illuminate\View\View;
 class TopController extends Controller
 {
     /**
-     * トップページを表示
+     * 顧客トップページを表示
      * @return View トップページ
      */
     public function index(): View
     {
+        if (Auth::check()) {
+            Auth::logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+        }
+
         return view('top');
     }
 }

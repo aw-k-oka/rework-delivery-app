@@ -16,10 +16,13 @@ class LoginController extends Controller
 {
     /**
      * ログイン画面を表示
-     * @return View ログイン画面
+     * @return RedirectResponse|View ログイン画面
      */
-    public function index(): View
+    public function index(): RedirectResponse|View
     {
+        if (Auth::check()) {
+            return redirect()->route('shipment.search.index');
+        }
         return view('auth.login');
     }
 
@@ -37,7 +40,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('/search');
+            return redirect()->route('shipment.search.index');
         }
         return back()->withErrors([
             'login_error' => 'ログインIDまたはパスワードが違います。',
@@ -54,6 +57,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect()->route('login.index');
     }
 }

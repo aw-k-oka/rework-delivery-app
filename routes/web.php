@@ -23,7 +23,9 @@ Route::get('/registration', [RegistrationController::class, 'index'])->name('shi
 
 Route::post('/registration/confirm', [RegistrationController::class, 'confirm'])->name('shipment.registration.confirm');
 
-Route::post('/registration/complete', [RegistrationController::class, 'store'])->name('shipment.registration.complete');
+Route::post('/registration/store', [RegistrationController::class, 'store'])->name('shipment.registration.store');
+
+Route::get('/registration/complete', [RegistrationController::class, 'complete'])->name('shipment.registration.complete');
 
 Route::post('/status/deliver', [StatusController::class, 'deliver'])->name('shipment.status.deliver');
 

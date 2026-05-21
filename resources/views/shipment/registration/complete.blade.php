@@ -3,13 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        @viteReactRefresh
+        @vite('resources/js/pages/shipment/registration/complete.jsx')
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
     </head>
     <body>
         @include('common.header')
-        <p>配送番号：{{ $trackingNumber }}にて承りました</p>
+        <div id="complete-message" data-tracking-number="{{ $trackingNumber }}"></div>
     </body>
 </html>

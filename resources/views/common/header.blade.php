@@ -1,6 +1,6 @@
 <header class="header">
     <div class="user-name">
-        ユーザー名：
+        ユーザ：
         @auth
         {{ Auth::user()->name }}
         @else

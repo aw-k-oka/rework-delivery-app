@@ -16,6 +16,7 @@ class TopController extends Controller
      */
     public function index(): View
     {
+        // 担当者としてログインしていたらログアウト
         if (Auth::check()) {
             Auth::logout();
             request()->session()->invalidate();

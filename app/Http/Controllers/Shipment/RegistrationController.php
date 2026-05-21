@@ -13,12 +13,13 @@ use Illuminate\View\View;
  */
 class RegistrationController extends Controller
 {
-    /** セッションのキー */
+    /** 配送情報のセッションキー */
     private const SHIPMENT_DATA = 'shipmentData';
+    /** 完了した追跡番号のセッションキー */
     private const COMPLETED_TRACKING_NUMBER = 'completedTrackingNumber';
 
     /**
-     * ページ表示
+     * 依頼入力画面を表示
      * @return View 配送依頼入力画面
      */
     public function index(): View

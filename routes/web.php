@@ -7,28 +7,68 @@ use App\Http\Controllers\Shipment\SearchController;
 use App\Http\Controllers\Shipment\StatusController;
 use App\Http\Controllers\TopController;
 
+// Top
 Route::get('/guest', [TopController::class, 'index'])->name('top');
 
+// Auth
 Route::get('/login', [LoginController::class, 'index']);
-
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, function () {
+    abort(403);
+}]);
 
-Route::get('/search', [SearchController::class, 'index'])->name('shipment.search.index');
+// Shipment Search
+Route::prefix('search')
+    ->name('shipment.search.')
+    ->controller(SearchController::class)
+    ->group(function () {
 
-Route::get('/search/result', [SearchController::class, 'result'])->name('shipment.search.result');
+        Route::get('/', 'index')->name('index');
 
-Route::get('/registration', [RegistrationController::class, 'index'])->name('shipment.registration.index');
+        Route::get('/result', 'result')->name('result');
+    });
 
-Route::post('/registration/confirm', [RegistrationController::class, 'confirm'])->name('shipment.registration.confirm');
+// Shipment Registration
+Route::prefix('registration')
+    ->name('shipment.registration.')
+    ->controller(RegistrationController::class)
+    ->group(function () {
 
-Route::post('/registration/store', [RegistrationController::class, 'store'])->name('shipment.registration.store');
+        Route::get('/', 'index')->name('index');
 
-Route::get('/registration/complete', [RegistrationController::class, 'complete'])->name('shipment.registration.complete');
+        Route::post('/confirm', 'confirm')->name('confirm');
+        Route::get('/confirm', function () {
+            abort(403);
+        });
 
-Route::post('/status/deliver', [StatusController::class, 'deliver'])->name('shipment.status.deliver');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/store', function () {
+            abort(403);
+        });
 
-Route::post('/status/return', [StatusController::class, 'backToOffice'])->name('shipment.status.backToOffice');
+        Route::get('/complete', 'complete')->name('complete');
+    });
 
-Route::post('/status/complete', [StatusController::class, 'complete'])->name('shipment.status.complete');
+// Shipment Status
+Route::prefix('status')
+    ->name('shipment.status.')
+    ->controller(StatusController::class)
+    ->group(function () {
+
+        Route::post('/deliver', 'deliver')->name('deliver');
+        Route::get('/deliver', function () {
+            abort(403);
+        });
+
+        Route::post('/return', 'backToOffice')->name('backToOffice');
+        Route::get('/return', function () {
+            abort(403);
+        });
+
+        Route::post('/complete', 'complete')->name('complete');
+        Route::get('/complete', function () {
+            abort(403);
+        });
+    });

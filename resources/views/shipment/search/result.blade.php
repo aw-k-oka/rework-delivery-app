@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        @viteReactRefresh
+        @vite('resources/js/pages/shipment/search/result.jsx')
 
         <link rel="stylesheet" href="{{ asset('css/shipment/search/result.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/common.css') }}">
@@ -49,39 +51,25 @@
                 <span>{{ $shipment->status }}</span>
             </div>
         </section>
-        <div class="button-area">
-            <form action="{{ route('shipment.search.index') }}" method="get">
-                <button type="submit" class="short-word">戻る</button>
-            </form>
-            @auth
-            @if ($shipment->status === '営業所')
-            <!-- レイアウト調整のための空要素 -->
-            <div></div>
-            <form method="POST" action="{{ route('shipment.status.deliver') }}">
-                @csrf
-                <input type="hidden" name="id" value="{{ $shipment->id }}">
-                <button type="submit" class="status-button short-word">
-                    配送
-                </button>
-            </form>
-            @endif
-            @if ($shipment->status === '配送中')
-            <form method="POST" action="{{ route('shipment.status.backToOffice') }}">
-                @csrf
-                <input type="hidden" name="id" value="{{ $shipment->id }}">
-                <button type="submit" class="status-button" @if ($shipment->staff_name !== Auth::user()?->name) disabled @endif>
-                    持ち帰り
-                </button>
-            </form>
-            <form method="POST" action="{{ route('shipment.status.complete') }}">
-                @csrf
-                <input type="hidden" name="id" value="{{ $shipment->id }}">
-                <button type="submit" class="status-button" @if ($shipment->staff_name !== Auth::user()?->name) disabled @endif>
-                    配達済み
-                </button>
-            </form>
-            @endif
-            @endauth
-        </div>
+        @auth
+        <div id="shipment-status-actions"
+            data-shipment='@json($shipment)'
+            data-user='@json(Auth::user())'
+            data-csrf-token="{{ csrf_token() }}"
+            data-back-url="{{ route('shipment.search.index') }}"
+            data-return-url="{{ route('shipment.status.backToOffice') }}"
+            data-deliver-url="{{ route('shipment.status.deliver') }}"
+            data-complete-url="{{ route('shipment.status.complete') }}"
+        ></div>
+        @else
+        <div id="shipment-status-actions"
+            data-shipment='@json([
+                "id" => $shipment->id,
+                "status" => $shipment->status,
+            ])'
+            data-csrf-token="{{ csrf_token() }}"
+            data-back-url="{{ route('shipment.search.index') }}"
+        ></div>
+        @endauth
     </body>
 </html>

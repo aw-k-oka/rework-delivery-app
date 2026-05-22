@@ -2,6 +2,11 @@
     display: grid;
     grid-template-columns: repeat(3, 90px);
     margin-top: 24px;
+    gap: 16px;
+}
+
+.delivery-form {
+    grid-column: 3;
 }
 
 .info-row {

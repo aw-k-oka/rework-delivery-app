@@ -1,24 +1,50 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+import ShipmentInfo from '../../../components/search/ShipmentInfo'
 import ShipmentStatusActions from '../../../components/search/ShipmentStatusActions';
 
-const element = document.getElementById('shipment-status-actions');
-if (element) {
-    const data = element.dataset;
-    const shipment = data.shipment ? JSON.parse(data.shipment) : null;
-    const user = data.user ? JSON.parse(data.user) : null;
+/**
+ * JSONから情報を取得
+ * @param {*} value
+ * @returns {Object|null}
+ */
+const parseData = (value) => {
+    return value ? JSON.parse(value) : null;
+}
 
-    ReactDOM.createRoot(element).render(
+const infoElement = document.getElementById('search-result');
+if (infoElement) {
+    const data = infoElement.dataset;
+    const shipment = parseData(data.shipment);
+    const user = parseData(data.user);
+    ReactDOM.createRoot(infoElement).render(
+        <ShipmentInfo
+            shipment={shipment}
+            user={user}
+        />
+    )
+}
+
+const actionElement = document.getElementById('shipment-status-actions');
+if (actionElement) {
+    const data = actionElement.dataset;
+    const shipment = parseData(data.shipment);
+    const user = parseData(data.user);
+    const actionProps = user ? {
+        returnUrl: data.returnUrl,
+        deliverUrl: data.deliverUrl,
+        completeUrl: data.completeUrl,
+        csrfToken: data.csrfToken,
+        isAnotherStaff: shipment && user ? shipment.staff_name !== user.user_name : false
+    } : {};
+
+    ReactDOM.createRoot(actionElement).render(
         <ShipmentStatusActions
             shipment={shipment}
             user={user}
             backUrl={data.backUrl}
-            returnUrl={data.returnUrl}
-            deliverUrl={data.deliverUrl}
-            completeUrl={data.completeUrl}
-            isAnotherStaff={user ? shipment.staff_name !== user.name : false}
-            csrfToken={data.csrfToken}
+            {...actionProps}
         />
     );
 }

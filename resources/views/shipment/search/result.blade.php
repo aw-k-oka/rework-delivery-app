@@ -14,47 +14,11 @@
     </head>
     <body>
         @include('common.header')
-        <section>
-            <div class="info-row">
-                <label>配送番号</label>
-                <span>{{ $shipment->tracking_number }}</span>
-            </div>
-            @auth
-            <div class="info-row">
-                <label>担当者</label>
-                <span>{{ $shipment->staff_name }}</span>
-            </div>
-            <div>
-                <label>ご依頼主</label>
-                <div class="info-row">
-                    <label class="info-label">氏名</label>
-                    <span>{{ $shipment->client_name }}</span>
-                </div>
-                <div class="info-row">
-                    <label class="info-label">住所</label>
-                    <span>{{ $shipment->client_address }}</span>
-                </div>
-
-                <label>お届け先</label>
-                <div class="info-row">
-                    <label class="info-label">氏名</label>
-                    <span>{{ $shipment->receiver_name }}</span>
-                </div>
-                <div class="info-row">
-                    <label class="info-label">住所</label>
-                    <span>{{ $shipment->receiver_address }}</span>
-                </div>
-            </div>
-            @endauth
-            <div class="info-row">
-                <label>配送状況</label>
-                <span>{{ $shipment->status }}</span>
-            </div>
-        </section>
+        <section id="search-result" data-shipment='@json($shipment)' data-user='@json($user)'></section>
         @auth
         <div id="shipment-status-actions"
             data-shipment='@json($shipment)'
-            data-user='@json(Auth::user())'
+            data-user='@json($user)'
             data-csrf-token="{{ csrf_token() }}"
             data-back-url="{{ route('shipment.search.index') }}"
             data-return-url="{{ route('shipment.status.backToOffice') }}"
@@ -63,11 +27,7 @@
         ></div>
         @else
         <div id="shipment-status-actions"
-            data-shipment='@json([
-                "id" => $shipment->id,
-                "status" => $shipment->status,
-            ])'
-            data-csrf-token="{{ csrf_token() }}"
+            data-shipment='@json($shipment)'
             data-back-url="{{ route('shipment.search.index') }}"
         ></div>
         @endauth

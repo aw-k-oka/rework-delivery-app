@@ -21,7 +21,7 @@ class StatusController extends Controller
         if (!$shipment || !$shipment->canStartDelivery()) {
             return back();
         }
-        $shipment->startDelivery(Auth::user()->name);
+        $shipment->startDelivery(Auth::id());
         $shipment->save();
 
         return $this->redirectToSearchResult($shipment);
@@ -35,7 +35,7 @@ class StatusController extends Controller
     public function backToOffice(Request $request): RedirectResponse
     {
         $shipment = Shipment::find($request->id);
-        if (!$shipment || !$shipment->canChangeStatus(Auth::user()->name)) {
+        if (!$shipment || !$shipment->canChangeStatus(Auth::id())) {
             return back();
         }
         $shipment->returnToOffice();
@@ -52,7 +52,7 @@ class StatusController extends Controller
     public function complete(Request $request): RedirectResponse
     {
         $shipment = Shipment::find($request->id);
-        if (!$shipment || !$shipment->canChangeStatus(Auth::user()->name)) {
+        if (!$shipment || !$shipment->canChangeStatus(Auth::id())) {
             return back();
         }
         $shipment->completeDelivery();

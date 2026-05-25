@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('receiver_name');
             $table->string('receiver_address');
             $table->string('status');
+            $table->foreignId('staff_id')
+                ->nullable()
+                ->constrained('users');
             $table->timestamps();
         });
     }

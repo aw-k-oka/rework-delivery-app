@@ -36,7 +36,7 @@ if (actionElement) {
         deliverUrl: data.deliverUrl,
         completeUrl: data.completeUrl,
         csrfToken: data.csrfToken,
-        isAnotherStaff: shipment && user ? shipment.staff_name !== user.user_name : false
+        isAnotherStaff: shipment && user ? shipment.staff_id !== user.id : false
     } : {};
 
     ReactDOM.createRoot(actionElement).render(

@@ -30,12 +30,12 @@ export default function ShipmentStatusActions({
             });
             const data = await response.json();
             if (!response.ok) {
-                console.error(data);
+                console.error(data.message);
                 return;
             }
             setShipmentData(data);
         } catch (e) {
-            console.error(e);
+            console.error(e.message);
         }
     };
 

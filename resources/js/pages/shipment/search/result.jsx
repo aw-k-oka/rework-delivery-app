@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import ShipmentInfo from '../../../components/search/ShipmentInfo'
-import ShipmentStatusActions from '../../../components/search/ShipmentStatusActions';
+import ShipmentInfo from "../../../components/search/ShipmentInfo";
+import ShipmentStatusActions from "../../../components/search/ShipmentStatusActions";
 
 /**
  * JSONから情報を取得
@@ -11,40 +11,51 @@ import ShipmentStatusActions from '../../../components/search/ShipmentStatusActi
  */
 const parseData = (value) => {
     return value ? JSON.parse(value) : null;
-}
+};
 
-const infoElement = document.getElementById('search-result');
-if (infoElement) {
-    const data = infoElement.dataset;
-    const shipment = parseData(data.shipment);
-    const user = parseData(data.user);
-    ReactDOM.createRoot(infoElement).render(
-        <ShipmentInfo
-            shipment={shipment}
-            user={user}
-        />
-    )
-}
+const element = document.getElementById("search-result");
+if (element) {
+    const data = element.dataset;
+    // ViteのHot Reloadによるエラー対策で使い回している
+    const root = window.searchResultRoot ?? ReactDOM.createRoot(element);
+    window.searchResultRoot = root;
 
-const actionElement = document.getElementById('shipment-status-actions');
-if (actionElement) {
-    const data = actionElement.dataset;
-    const shipment = parseData(data.shipment);
-    const user = parseData(data.user);
-    const actionProps = user ? {
-        returnUrl: data.returnUrl,
-        deliverUrl: data.deliverUrl,
-        completeUrl: data.completeUrl,
-        csrfToken: data.csrfToken,
-        isAnotherStaff: shipment && user ? shipment.staff_id !== user.id : false
-    } : {};
-
-    ReactDOM.createRoot(actionElement).render(
-        <ShipmentStatusActions
-            shipment={shipment}
-            user={user}
+    root.render(
+        <SearchResultPage
+            shipment={parseData(data.shipment)}
+            user={parseData(data.user)}
             backUrl={data.backUrl}
-            {...actionProps}
-        />
+            returnUrl={data.returnUrl}
+            deliverUrl={data.deliverUrl}
+            completeUrl={data.completeUrl}
+            csrfToken={data.csrfToken}
+        />,
+    );
+}
+
+function SearchResultPage({
+    shipment,
+    user,
+    backUrl,
+    returnUrl,
+    deliverUrl,
+    completeUrl,
+    csrfToken,
+}) {
+    const [shipmentData, setShipmentData] = React.useState(shipment);
+    return (
+        <>
+            <ShipmentInfo shipment={shipmentData} user={user} />
+            <ShipmentStatusActions
+                shipment={shipmentData}
+                user={user}
+                backUrl={backUrl}
+                returnUrl={returnUrl}
+                deliverUrl={deliverUrl}
+                completeUrl={completeUrl}
+                csrfToken={csrfToken}
+                setShipmentData={setShipmentData}
+            />
+        </>
     );
 }

@@ -17,12 +17,14 @@
         <section
             id="search-result"
             data-shipment='@json($shipment)'
-            data-user='@json($user)'
             data-back-url="{{ route('shipment.search.index') }}"
-            data-return-url="{{ route('shipment.status.backToOffice') }}"
-            data-deliver-url="{{ route('shipment.status.deliver') }}"
-            data-complete-url="{{ route('shipment.status.complete') }}"
-            data-csrf-token="{{ csrf_token() }}"
+            @auth
+                data-user='@json($user)'
+                data-return-url="{{ route('shipment.status.backToOffice') }}"
+                data-deliver-url="{{ route('shipment.status.deliver') }}"
+                data-complete-url="{{ route('shipment.status.complete') }}"
+                data-csrf-token="{{ csrf_token() }}"
+            @endauth
         ></section>
     </body>
 </html>

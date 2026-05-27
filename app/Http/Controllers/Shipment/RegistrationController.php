@@ -27,7 +27,10 @@ class RegistrationController extends Controller
         // 前回の依頼情報のセッションをクリア
         session()->forget([self::SHIPMENT_DATA, self::COMPLETED_TRACKING_NUMBER]);
 
-        return view('shipment.registration.index');
+        return view('shipment.registration.index', [
+            'maxNameLength' => StoreShipmentRequest::MAX_NAME_LENGTH,
+            'maxAddressLength' => StoreShipmentRequest::MAX_ADDRESS_LENGTH,
+        ]);
     }
 
     /**

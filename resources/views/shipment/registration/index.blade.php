@@ -17,14 +17,14 @@
             <section>
                 <label>ご依頼主</label>
                 <div class="form-row">
-                    <label>氏名(30文字)</label><span class="must">※必須</span>
+                    <label>氏名({{ $maxNameLength }}文字)</label><span class="must">※必須</span>
                     <input type="text" name="client_name" value="{{ old('client_name', request('client_name')) }}">
                     @error('client_name')
                     <p class="error-msg">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-row">
-                    <label>住所(50文字)</label><span class="must">※必須</span>
+                    <label>住所({{ $maxAddressLength }}文字)</label><span class="must">※必須</span>
                     <input type="text" name="client_address" value="{{ old('client_address', request('client_address')) }}">
                     @error('client_address')
                     <p class="error-msg">{{ $message }}</p>
@@ -35,14 +35,14 @@
             <section>
                 <label>お届け先</label>
                 <div class="form-row">
-                    <label>氏名(30文字)</label><span class="must">※必須</span>
+                    <label>氏名({{ $maxNameLength }}文字)</label><span class="must">※必須</span>
                     <input type="text" name="receiver_name" value="{{ old('receiver_name', request('receiver_name')) }}">
                     @error('receiver_name')
                     <p class="error-msg">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-row">
-                    <label>住所(50文字)</label><span class="must">※必須</span>
+                    <label>住所({{ $maxAddressLength }}文字)</label><span class="must">※必須</span>
                     <input type="text" name="receiver_address" value="{{ old('receiver_address', request('receiver_address')) }}">
                     @error('receiver_address')
                     <p class="error-msg">{{ $message }}</p>

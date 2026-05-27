@@ -48,9 +48,9 @@ class StoreShipmentRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'client_name' => 'ご依頼主名',
+            'client_name' => 'ご依頼主氏名',
             'client_address' => 'ご依頼主住所',
-            'receiver_name' => 'お届け先名',
+            'receiver_name' => 'お届け先氏名',
             'receiver_address' => 'お届け先住所',
         ];
     }

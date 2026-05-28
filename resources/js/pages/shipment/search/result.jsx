@@ -6,7 +6,7 @@ import ShipmentStatusActions from "../../../components/search/ShipmentStatusActi
 
 /**
  * JSONから情報を取得
- * @param {*} value
+ * @param {string|null|undefined} value
  * @returns {Object|null}
  */
 const parseData = (value) => {

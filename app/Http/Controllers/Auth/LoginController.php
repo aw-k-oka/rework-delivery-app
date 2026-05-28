@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -29,9 +28,9 @@ class LoginController extends Controller
     /**
      * ログイン処理
      * @param Request $request POSTで送られるリクエスト
-     * @return RedirectResponse|Response
+     * @return RedirectResponse
      */
-    public function login(Request $request): RedirectResponse|Response
+    public function login(Request $request): RedirectResponse
     {
         $credentials = [
             'login_id' => $request->login_id,

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>配送アプリ：依頼検索結果</title>
         @viteReactRefresh
         @vite('resources/js/pages/shipment/search/result.jsx')
 

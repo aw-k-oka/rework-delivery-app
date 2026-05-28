@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>配送アプリ：入力内容確認</title>
 
         <link rel="stylesheet" href="{{ asset('css/common/common.css') }}">
         <link rel="stylesheet" href="{{ asset('css/shipment/registration/confirm.css') }}">

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @viteReactRefresh
         @vite('resources/js/pages/shipment/registration/complete.jsx')
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>配送アプリ：依頼完了</title>
 
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
     </head>

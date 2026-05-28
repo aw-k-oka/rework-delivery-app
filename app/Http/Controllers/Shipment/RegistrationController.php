@@ -72,7 +72,7 @@ class RegistrationController extends Controller
 
     /**
      * 登録完了画面を表示
-     * @return View 登録完了画面または入力画面へリダイレクト
+     * @return View 登録完了画面
      */
     public function complete(): View
     {

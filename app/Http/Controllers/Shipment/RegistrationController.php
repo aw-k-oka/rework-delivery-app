@@ -78,6 +78,8 @@ class RegistrationController extends Controller
             abort(403);
         }
 
-        return view('shipment.registration.complete', compact('trackingNumber'));
+        return view('shipment.registration.complete', [
+            'trackingNumber' => $trackingNumber,
+        ]);
     }
 }

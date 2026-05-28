@@ -16,30 +16,30 @@
             <label>ご依頼主</label>
             <div class="form-row">
                 <span class="form-label">氏名</span>
-                <span>{{ $clientName }}</span>
+                <span>{{ $client_name }}</span>
             </div>
             <div class="form-row">
                 <span class="form-label">住所</span>
-                <span>{{ $clientAddress }}</span>
+                <span>{{ $client_address }}</span>
             </div>
         </section>
         <section>
             <label>お届け先</label>
             <div class="form-row">
                 <span class="form-label">氏名</span>
-                <span>{{ $receiverName }}</span>
+                <span>{{ $receiver_name }}</span>
             </div>
             <div class="form-row">
                 <span class="form-label">住所</span>
-                <span>{{ $receiverAddress }}</span>
+                <span>{{ $receiver_address }}</span>
             </div>
         </section>
         <div class="button-area">
             <form method="GET" action="{{ route('shipment.registration.index') }}">
-                <input type="hidden" name="client_name" value="{{ $clientName }}">
-                <input type="hidden" name="client_address" value="{{ $clientAddress }}">
-                <input type="hidden" name="receiver_name" value="{{ $receiverName }}">
-                <input type="hidden" name="receiver_address" value="{{ $receiverAddress }}">
+                <input type="hidden" name="client_name" value="{{ $client_name }}">
+                <input type="hidden" name="client_address" value="{{ $client_address }}">
+                <input type="hidden" name="receiver_name" value="{{ $receiver_name }}">
+                <input type="hidden" name="receiver_address" value="{{ $receiver_address }}">
                 <button type="submit" class="short-word">戻る</button>
             </form>
             <form method="POST" action="{{ route('shipment.registration.store') }}">

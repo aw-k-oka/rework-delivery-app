@@ -40,14 +40,10 @@ class RegistrationController extends Controller
      */
     public function confirm(StoreShipmentRequest $request): View
     {
-        session([self::SHIPMENT_DATA => $request->validated()]);
+        $shipmentData = $request->validated();
+        session([self::SHIPMENT_DATA => $shipmentData]);
 
-        return view('shipment.registration.confirm', [
-            'clientName' => $request->client_name,
-            'clientAddress' => $request->client_address,
-            'receiverName' => $request->receiver_name,
-            'receiverAddress' => $request->receiver_address,
-        ]);
+        return view('shipment.registration.confirm', $shipmentData);
     }
 
     /**

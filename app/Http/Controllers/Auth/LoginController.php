@@ -41,9 +41,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
             return redirect()->route('shipment.search.index');
         }
-        return back()->withErrors([
-            'login_error' => 'ログインIDまたはパスワードが違います。',
-        ]);
+        return back()->withErrors(['login_error' => 'ログインIDまたはパスワードが違います。'])->withInput();
     }
 
     /**

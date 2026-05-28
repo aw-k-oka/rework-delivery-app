@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>配送アプリ：ログイン</title>
 
         <link rel="stylesheet" href="{{ asset('css/common/common.css') }}">
         <link rel="stylesheet" href="{{ asset('css/auth/login.css') }}">
@@ -18,7 +18,7 @@
                 @csrf
                 <div class="user-row">
                     <label>ID</label>
-                    <input type="text" name="login_id">
+                    <input type="text" name="login_id" value="{{ old('login_id') }}">
                 </div>
                 <div class="user-row">
                     <label>PASS</label>

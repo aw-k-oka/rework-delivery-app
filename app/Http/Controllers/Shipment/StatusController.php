@@ -8,6 +8,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * 配送ステータスの変更処理を行うコントローラー
+ */
 class StatusController extends Controller
 {
     /**
@@ -17,16 +20,14 @@ class StatusController extends Controller
 
     /**
      * 荷物ステータスを配送中に変更
-     * @param Request $request POSTで送られるリクエスト
-     * @return JSONResponse
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function deliver(Request $request): JSONResponse
+    public function deliver(Request $request): JsonResponse
     {
         $shipment = Shipment::find($request->id);
         if (!$shipment || !$shipment->canStartDelivery()) {
-            return response()->json([
-                'message' => self::ERROR_MESSAGE
-            ], 400);
+            return $this->errorResponse();
         }
         $shipment->startDelivery(Auth::id());
         $shipment->save();
@@ -36,16 +37,14 @@ class StatusController extends Controller
 
     /**
      * 荷物を持ち帰り、ステータスを営業所に戻す
-     * @param Request $request POSTで送られるリクエスト
-     * @return JSONResponse
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function backToOffice(Request $request): JSONResponse
+    public function backToOffice(Request $request): JsonResponse
     {
         $shipment = Shipment::find($request->id);
         if (!$shipment || !$shipment->canChangeStatus(Auth::id())) {
-            return response()->json([
-                'message' => self::ERROR_MESSAGE
-            ], 400);
+            return $this->errorResponse();
         }
         $shipment->returnToOffice();
         $shipment->save();
@@ -55,16 +54,14 @@ class StatusController extends Controller
 
     /**
      * 荷物を配達完了ステータスに変更
-     * @param Request $request POSTで送られるリクエスト
-     * @return JSONResponse
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function complete(Request $request): JSONResponse
+    public function complete(Request $request): JsonResponse
     {
         $shipment = Shipment::find($request->id);
         if (!$shipment || !$shipment->canChangeStatus(Auth::id())) {
-            return response()->json([
-                'message' => self::ERROR_MESSAGE
-            ], 400);
+            return $this->errorResponse();
         }
         $shipment->completeDelivery();
         $shipment->save();
@@ -75,9 +72,9 @@ class StatusController extends Controller
     /**
      * 配送ステータスを変更
      * @param Shipment $shipment 配送情報
-     * @return JSONResponse 変更後の配送情報
+     * @return JsonResponse
      */
-    private function changeShipmentState(Shipment $shipment): JSONResponse
+    private function changeShipmentState(Shipment $shipment): JsonResponse
     {
         $shipment->load('staff');
 
@@ -92,5 +89,16 @@ class StatusController extends Controller
             'receiver_name' => $shipment->receiver_name,
             'receiver_address' => $shipment->receiver_address,
         ]);
+    }
+
+    /**
+     * 不正な操作の際のエラーレスポンス
+     * @return JsonResponse
+     */
+    private function errorResponse(): JsonResponse
+    {
+        return response()->json([
+            'message' => self::ERROR_MESSAGE,
+        ], 400);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Shipment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -29,14 +30,32 @@ class SearchController extends Controller
      */
     public function result(Request $request): View|RedirectResponse
     {
-        $shipment = Shipment::firstWhere('tracking_number', $request->tracking_number);
+        $shipment = Shipment::with('staff')->firstWhere('tracking_number', $request->tracking_number);
 
         if (!$shipment) {
             return back()->withErrors(['not_found_error' => '該当する配送情報が見つかりません。']);
         }
+        $user = Auth::user();
 
         return view('shipment.search.result', [
-            'shipment' => $shipment,
+            // 未ログインの場合、返却情報は最小限にする
+            'shipment' => $user ? [
+                'id' => $shipment->id,
+                'tracking_number' => $shipment->tracking_number,
+                'status' => $shipment->status,
+                'staff_id' => $shipment->staff_id,
+                'staff_name' => $shipment->staff?->name,
+                'client_name' => $shipment->client_name,
+                'client_address' => $shipment->client_address,
+                'receiver_name' => $shipment->receiver_name,
+                'receiver_address' => $shipment->receiver_address,
+            ] : [
+                'tracking_number' => $shipment->tracking_number,
+                'status' => $shipment->status,
+            ],
+            'user' => $user ? [
+                'id' => $user->id
+            ] : null,
         ]);
     }
 }

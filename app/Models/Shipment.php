@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * 配送情報モデル
@@ -26,13 +27,22 @@ class Shipment extends Model
      */
     protected $fillable = [
         'tracking_number',
-        'staff_name',
+        'staff_id',
         'client_name',
         'client_address',
         'receiver_name',
         'receiver_address',
         'status',
     ];
+
+    /**
+     * 外部キーを紐付け
+     * @return BelongsTo
+     */
+    public function staff(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'staff_id');
+    }
 
     /**
      * 配送番号をIDから自動生成して設定
@@ -53,22 +63,22 @@ class Shipment extends Model
 
     /**
      * ステータス変更可能か
-     * @param string $staffName 担当者名
+     * @param int $staffId 担当者ID
      * @return bool
      */
-    public function canChangeStatus(string $staffName): bool
+    public function canChangeStatus(int $staffId): bool
     {
-        return $this->status === self::STATUS_DELIVERING && $this->staff_name === $staffName;
+        return $this->status === self::STATUS_DELIVERING && $this->staff_id === $staffId;
     }
 
     /**
      * 荷物を配送中ステータスに変更
-     * @param string $staffName 配送担当者名前
+     * @param int $staffId 担当者ID
      */
-    public function startDelivery(string $staffName): void
+    public function startDelivery(int $staffId): void
     {
         $this->status = self::STATUS_DELIVERING;
-        $this->staff_name = $staffName;
+        $this->staff_id = $staffId;
     }
 
     /**
@@ -77,7 +87,7 @@ class Shipment extends Model
     public function returnToOffice(): void
     {
         $this->status = self::STATUS_OFFICE;
-        $this->staff_name = null;
+        $this->staff_id = null;
     }
 
     /**

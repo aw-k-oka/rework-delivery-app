@@ -27,7 +27,10 @@ class RegistrationController extends Controller
         // 前回の依頼情報のセッションをクリア
         session()->forget([self::SHIPMENT_DATA, self::COMPLETED_TRACKING_NUMBER]);
 
-        return view('shipment.registration.index');
+        return view('shipment.registration.index', [
+            'maxNameLength' => StoreShipmentRequest::MAX_NAME_LENGTH,
+            'maxAddressLength' => StoreShipmentRequest::MAX_ADDRESS_LENGTH,
+        ]);
     }
 
     /**
@@ -37,14 +40,10 @@ class RegistrationController extends Controller
      */
     public function confirm(StoreShipmentRequest $request): View
     {
-        session([self::SHIPMENT_DATA => $request->validated()]);
+        $shipmentData = $request->validated();
+        session([self::SHIPMENT_DATA => $shipmentData]);
 
-        return view('shipment.registration.confirm', [
-            'clientName' => $request->client_name,
-            'clientAddress' => $request->client_address,
-            'receiverName' => $request->receiver_name,
-            'receiverAddress' => $request->receiver_address,
-        ]);
+        return view('shipment.registration.confirm', $shipmentData);
     }
 
     /**
@@ -69,7 +68,7 @@ class RegistrationController extends Controller
 
     /**
      * 登録完了画面を表示
-     * @return View 登録完了画面または入力画面へリダイレクト
+     * @return View 登録完了画面
      */
     public function complete(): View
     {

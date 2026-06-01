@@ -30,6 +30,12 @@ class RegistrationController extends Controller
         return view('shipment.registration.index', [
             'maxNameLength' => StoreShipmentRequest::MAX_NAME_LENGTH,
             'maxAddressLength' => StoreShipmentRequest::MAX_ADDRESS_LENGTH,
+            'oldData' => [
+                "client_name" => old("client_name", request("client_name")),
+                "client_address" => old("client_address", request("client_address")),
+                "receiver_name" => old("receiver_name", request("receiver_name")),
+                "receiver_address" => old("receiver_address", request("receiver_address")),
+            ],
         ]);
     }
 

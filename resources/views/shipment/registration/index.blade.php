@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>配送アプリ：依頼登録</title>
+        @viteReactRefresh
+        @vite('resources/js/pages/shipment/registration/index.jsx')
 
         <link rel="stylesheet" href="{{ asset('css/common/common.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
@@ -12,47 +14,14 @@
     </head>
     <body>
         @include('common.header')
-        <form method="POST" action="{{ route('shipment.registration.confirm') }}">
-            @csrf
-            <section>
-                <p>ご依頼主</p>
-                <div class="form-row">
-                    <label for="client_name">氏名({{ $maxNameLength }}文字)<span class="must">※必須</span></label>
-                    <input id="client_name" type="text" name="client_name" value="{{ old('client_name', request('client_name')) }}">
-                    @error('client_name')
-                    <p class="error-msg">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="form-row">
-                    <label for="client_address">住所({{ $maxAddressLength }}文字)<span class="must">※必須</span></label>
-                    <input id="client_address" type="text" name="client_address" value="{{ old('client_address', request('client_address')) }}">
-                    @error('client_address')
-                    <p class="error-msg">{{ $message }}</p>
-                    @enderror
-                </div>
-            </section>
-
-            <section>
-                <p>お届け先</p>
-                <div class="form-row">
-                    <label for="receiver_name">氏名({{ $maxNameLength }}文字)<span class="must">※必須</span></label>
-                    <input id="receiver_name" type="text" name="receiver_name" value="{{ old('receiver_name', request('receiver_name')) }}">
-                    @error('receiver_name')
-                    <p class="error-msg">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="form-row">
-                    <label for="receiver_address">住所({{ $maxAddressLength }}文字)<span class="must">※必須</span></label>
-                    <input id="receiver_address" type="text" name="receiver_address" value="{{ old('receiver_address', request('receiver_address')) }}">
-                    @error('receiver_address')
-                    <p class="error-msg">{{ $message }}</p>
-                    @enderror
-                </div>
-            </section>
-            <div class="button-area">
-                <button class="short-word" type="button" onclick="location.href='{{ route('top') }}'">戻る</button>
-                <button class="short-word" type="submit">確認</button>
-            </div>
-        </form>
+        <div
+            id="registration-form"
+            data-confirm-url="{{ route('shipment.registration.confirm') }}"
+            data-csrf-token="{{ csrf_token() }}"
+            data-max-name-length="{{ $maxNameLength }}"
+            data-max-address-length="{{ $maxAddressLength }}"
+            data-old='@json($oldData)'
+            data-errors='@json($errors->toArray())'
+        ></div>
     </body>
 </html>

@@ -13,7 +13,7 @@
     <body>
         @include('common.header')
         <section>
-            <label>ご依頼主</label>
+            <p>ご依頼主</p>
             <div class="form-row">
                 <span class="form-label">氏名</span>
                 <span>{{ $client_name }}</span>
@@ -24,7 +24,7 @@
             </div>
         </section>
         <section>
-            <label>お届け先</label>
+            <p>お届け先</p>
             <div class="form-row">
                 <span class="form-label">氏名</span>
                 <span>{{ $receiver_name }}</span>

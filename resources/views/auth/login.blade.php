@@ -17,12 +17,12 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="user-row">
-                    <label>ID</label>
-                    <input type="text" name="login_id" value="{{ old('login_id') }}">
+                    <label for="login_id">ID</label>
+                    <input id="login_id" type="text" name="login_id" value="{{ old('login_id') }}">
                 </div>
                 <div class="user-row">
-                    <label>PASS</label>
-                    <input type="password" name="login_password">
+                    <label for="login_password">PASS</label>
+                    <input id="login_password" type="password" name="login_password">
                 </div>
                 <div class="button-area">
                     <button class="login-button" type="submit">ログイン</button>

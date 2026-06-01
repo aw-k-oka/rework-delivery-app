@@ -15,17 +15,17 @@
         <form method="POST" action="{{ route('shipment.registration.confirm') }}">
             @csrf
             <section>
-                <label>ご依頼主</label>
+                <p>ご依頼主</p>
                 <div class="form-row">
-                    <label>氏名({{ $maxNameLength }}文字)</label><span class="must">※必須</span>
-                    <input type="text" name="client_name" value="{{ old('client_name', request('client_name')) }}">
+                    <label for="client_name">氏名({{ $maxNameLength }}文字)<span class="must">※必須</span></label>
+                    <input id="client_name" type="text" name="client_name" value="{{ old('client_name', request('client_name')) }}">
                     @error('client_name')
                     <p class="error-msg">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-row">
-                    <label>住所({{ $maxAddressLength }}文字)</label><span class="must">※必須</span>
-                    <input type="text" name="client_address" value="{{ old('client_address', request('client_address')) }}">
+                    <label for="client_address">住所({{ $maxAddressLength }}文字)<span class="must">※必須</span></label>
+                    <input id="client_address" type="text" name="client_address" value="{{ old('client_address', request('client_address')) }}">
                     @error('client_address')
                     <p class="error-msg">{{ $message }}</p>
                     @enderror
@@ -33,17 +33,17 @@
             </section>
 
             <section>
-                <label>お届け先</label>
+                <p>お届け先</p>
                 <div class="form-row">
-                    <label>氏名({{ $maxNameLength }}文字)</label><span class="must">※必須</span>
-                    <input type="text" name="receiver_name" value="{{ old('receiver_name', request('receiver_name')) }}">
+                    <label for="receiver_name">氏名({{ $maxNameLength }}文字)<span class="must">※必須</span></label>
+                    <input id="receiver_name" type="text" name="receiver_name" value="{{ old('receiver_name', request('receiver_name')) }}">
                     @error('receiver_name')
                     <p class="error-msg">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-row">
-                    <label>住所({{ $maxAddressLength }}文字)</label><span class="must">※必須</span>
-                    <input type="text" name="receiver_address" value="{{ old('receiver_address', request('receiver_address')) }}">
+                    <label for="receiver_address">住所({{ $maxAddressLength }}文字)<span class="must">※必須</span></label>
+                    <input id="receiver_address" type="text" name="receiver_address" value="{{ old('receiver_address', request('receiver_address')) }}">
                     @error('receiver_address')
                     <p class="error-msg">{{ $message }}</p>
                     @enderror

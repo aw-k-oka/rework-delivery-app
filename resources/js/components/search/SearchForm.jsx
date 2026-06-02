@@ -1,14 +1,12 @@
 import React from 'react';
 import SearchResultTable from './SearchResultTable';
 
-export default function SearchForm({ searchUrl }) {
+export default function SearchForm({ searchUrl, setShipments }) {
     // フォームの入力値
     const [formData, setFormData] = React.useState({
         tracking_number: '',
         receiver_address: ''
     });
-    // 検索結果
-    const [shipments, setShipments] = React.useState([]);
 
     const handleChange = (event) => {
         setFormData({
@@ -42,7 +40,7 @@ export default function SearchForm({ searchUrl }) {
 
     return (
         <>
-            <p>検索条件</p>
+            <label>検索条件</label>
             <div className="search-form">
                 <label htmlFor="tracking_number">配送番号</label>
                 <input id="tracking_number" type="text" name="tracking_number" value={formData.tracking_number} onChange={handleChange} />
@@ -50,7 +48,6 @@ export default function SearchForm({ searchUrl }) {
                 <input id="receiver_address" type="text" name="receiver_address" value={formData.receiver_address} onChange={handleChange} />
                 <button className="short-word search-button" type="button" onClick={search}>検索</button>
             </div>
-            <SearchResultTable shipments={shipments} />
         </>
     );
 };

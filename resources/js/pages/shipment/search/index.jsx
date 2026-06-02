@@ -12,10 +12,16 @@ if (element) {
     const root = window.searchListRoot ?? ReactDOM.createRoot(element);
     window.searchListRoot = root;
 
-    root.render(
-        <>
-            <SearchForm searchUrl={data.searchUrl} />
-        </>
+    root.render(<SearchPage searchUrl={data.searchUrl} />);
+}
 
+function SearchPage({ searchUrl }) {
+    // 検索結果
+    const [shipments, setShipments] = React.useState([]);
+    return (
+        <>
+            <SearchForm searchUrl={searchUrl} setShipments={setShipments} />
+            <SearchResultTable shipments={shipments} />
+        </>
     );
 }

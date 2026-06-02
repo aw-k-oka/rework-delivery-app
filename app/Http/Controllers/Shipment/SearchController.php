@@ -31,6 +31,10 @@ class SearchController extends Controller
      */
     public function search(Request $request): JsonResponse
     {
+        // URLに直接アクセスした場合は404エラーを返す
+        if (!$request->expectsJson()) {
+            abort(404);
+        }
         $query = Shipment::query();
         if ($request->tracking_number) {
             $query->where('tracking_number', 'like', '%' . $request->tracking_number . '%');

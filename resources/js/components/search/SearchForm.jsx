@@ -21,7 +21,11 @@ export default function SearchForm({ searchUrl, setShipments }) {
                 tracking_number: formData.tracking_number,
                 receiver_address: formData.receiver_address,
             });
-            const response = await fetch(searchUrl + '?' + params.toString());
+            const response = await fetch(searchUrl + '?' + params.toString(), {
+                headers: {
+                    'Accept': 'application/json',
+                }
+            });
             const data = await response.json();
             if (!response.ok) {
                 console.error(data.message);

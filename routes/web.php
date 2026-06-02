@@ -27,6 +27,8 @@ Route::prefix('search')
 
         Route::get('/', 'index')->name('index');
 
+        Route::get('/list', 'search')->name('list');
+
         Route::get('/result', 'result')->name('result');
     });
 

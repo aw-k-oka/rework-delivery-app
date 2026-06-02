@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shipment;
 
 use App\Http\Controllers\Controller;
 use App\Models\Shipment;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,33 @@ class SearchController extends Controller
     public function index(): View
     {
         return view('shipment.search.index');
+    }
+
+    /**
+     * 検索結果表示
+     * @param Request $request GETリクエスト
+     * @return JsonResponse
+     */
+    public function search(Request $request): JsonResponse
+    {
+        $query = Shipment::query();
+        if ($request->tracking_number) {
+            $query->where('tracking_number', 'like', '%' . $request->tracking_number . '%');
+        }
+        if ($request->receiver_address) {
+            $query->where('receiver_address', 'like', '%' . $request->receiver_address . '%');
+        }
+        $shipments = $query->with('staff')->get();
+
+        return response()->json($shipments->map(function ($shipment) {
+            return [
+                'tracking_number' => $shipment->tracking_number,
+                'status' => $shipment->status,
+                'staff_name' => $shipment->staff?->name,
+                'receiver_name' => $shipment->receiver_name,
+                'receiver_address' => $shipment->receiver_address,
+            ];
+        }));
     }
 
     /**

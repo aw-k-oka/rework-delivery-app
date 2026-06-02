@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>配送アプリ：依頼検索</title>
+        @viteReactRefresh
+        @vite('resources/js/pages/shipment/search/index.jsx')
 
         <link rel="stylesheet" href="{{ asset('css/common/common.css') }}">
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
@@ -12,17 +14,6 @@
     </head>
     <body>
         @include('common.header')
-        <div class="form-area">
-            @error('not_found_error')
-            <p class="error-msg">{{ $message }}</p>
-            @enderror
-            <form method="GET" action="{{ route('shipment.search.result') }}">
-                <label for="tracking_number">配送番号</label>
-                <input id="tracking_number" type="text" name="tracking_number">
-                <div class="button-area">
-                    <button class="search-button short-word" type="submit">検索</button>
-                </div>
-            </form>
-        </div>
+        <div id="shipment-search" data-search-url="{{ route('shipment.search.list') }}"></div>
     </body>
 </html>

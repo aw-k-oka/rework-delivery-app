@@ -15,6 +15,12 @@ use Illuminate\View\View;
  */
 class SearchController extends Controller
 {
+    // ソート条件
+    private const TRACKING_NUMBER_DESC = 'tracking_number_desc';
+    private const TRACKING_NUMBER_ASC = 'tracking_number_asc';
+    private const UPDATE_DATE_DESC = 'update_date_desc';
+    private const UPDATE_DATE_ASC = 'update_date_asc';
+
     /**
      * ページ表示
      * @return View 配送情報検索画面
@@ -42,7 +48,22 @@ class SearchController extends Controller
         if ($request->receiver_address) {
             $query->where('receiver_address', 'like', '%' . $request->receiver_address . '%');
         }
-        $shipments = $query->with('staff')->orderBy('tracking_number', 'desc')->get();
+        $sort = $request->sort;
+        switch ($sort) {
+            case self::UPDATE_DATE_ASC:
+                $query->orderBy('updated_at', 'asc');
+                break;
+            case self::UPDATE_DATE_DESC:
+                $query->orderBy('updated_at', 'desc');
+                break;
+            case self::TRACKING_NUMBER_ASC:
+                $query->orderBy('tracking_number', 'asc');
+                break;
+            case self::TRACKING_NUMBER_DESC:
+            default:
+                $query->orderBy('tracking_number', 'desc');
+        }
+        $shipments = $query->with('staff')->get();
 
         return response()->json($shipments->map(function ($shipment) {
             return [

@@ -38,7 +38,7 @@ class SearchController extends Controller
         if ($request->receiver_address) {
             $query->where('receiver_address', 'like', '%' . $request->receiver_address . '%');
         }
-        $shipments = $query->with('staff')->get();
+        $shipments = $query->with('staff')->orderBy('tracking_number', 'desc')->get();
 
         return response()->json($shipments->map(function ($shipment) {
             return [

@@ -22,36 +22,39 @@ export default function SearchForm({ searchUrl, setShipments }) {
     };
 
     const search = async (targetFormData = formData) => {
-        try {
-            const params = new URLSearchParams({
-                tracking_number: targetFormData.tracking_number,
-                receiver_address: targetFormData.receiver_address,
-                sort: targetFormData.sort
-            });
-            const response = await fetch(searchUrl + '?' + params.toString(), {
+    try {
+        const params = new URLSearchParams({
+            tracking_number: targetFormData.tracking_number,
+            receiver_address: targetFormData.receiver_address,
+            sort: targetFormData.sort,
+        });
+        const response = await fetch(
+            searchUrl + '?' + params.toString(),
+            {
                 headers: {
-                    'Accept': 'application/json',
-                }
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                console.error(data.message);
-                return;
+                    Accept: 'application/json',
+                },
             }
-            setShipments(data);
-        } catch (e) {
-            console.error(e.message);
+        );
+        const data = await response.json();
+        if (!response.ok) {
+            console.error(data.message);
+            return;
         }
-    };
+        setShipments(data);
+    } catch (e) {
+        console.error(e.message);
+    }
+};
 
     const handleSort = (event) => {
-        const newFormData = {
-            ...formData,
-            sort: event.target.value,
-        }
-        setFormData(newFormData);
-        search(newFormData);
-    }
+    const newFormData = {
+        ...formData,
+        sort: event.target.value,
+    };
+    setFormData(newFormData);
+    search(newFormData);
+};
 
     // 初回表示時は全件検索
     React.useEffect(() => {
@@ -74,7 +77,7 @@ export default function SearchForm({ searchUrl, setShipments }) {
                 <input id="tracking_number" type="text" name="tracking_number" value={formData.tracking_number} onChange={handleChange} />
                 <label htmlFor="receiver_address">届け先住所</label>
                 <input id="receiver_address" type="text" name="receiver_address" value={formData.receiver_address} onChange={handleChange} />
-                <button className="short-word search-button" type="button" onClick={search}>検索</button>
+                <button className="short-word search-button" type="button" onClick={() => search()}>検索</button>
             </div>
         </>
     );

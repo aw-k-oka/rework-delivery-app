@@ -45,7 +45,7 @@ function SearchResultPage({
     const [shipmentData, setShipmentData] = React.useState(shipment);
     return (
         <>
-            <ShipmentInfo shipment={shipmentData} user={user} />
+            <ShipmentInfo shipment={shipmentData} />
             <ShipmentStatusActions
                 shipment={shipmentData}
                 user={user}

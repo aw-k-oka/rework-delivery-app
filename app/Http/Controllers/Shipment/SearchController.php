@@ -75,24 +75,18 @@ class SearchController extends Controller
         if (!$shipment) {
             return back()->withErrors(['not_found_error' => '該当する配送情報が見つかりません。']);
         }
-        // ログイン有無で共通の情報
         $shipmentData = [
             'tracking_number' => $shipment->tracking_number,
             'status' => $shipment->status,
+            'id' => $shipment->id,
+            'staff_id' => $shipment->staff_id,
+            'staff_name' => $shipment->staff?->name,
+            'client_name' => $shipment->client_name,
+            'client_address' => $shipment->client_address,
+            'receiver_name' => $shipment->receiver_name,
+            'receiver_address' => $shipment->receiver_address,
         ];
-        $user = Auth::user();
-        // 担当者ログイン時に必要な情報
-        if ($user) {
-            $shipmentData = array_merge($shipmentData, [
-                'id' => $shipment->id,
-                'staff_id' => $shipment->staff_id,
-                'staff_name' => $shipment->staff?->name,
-                'client_name' => $shipment->client_name,
-                'client_address' => $shipment->client_address,
-                'receiver_name' => $shipment->receiver_name,
-                'receiver_address' => $shipment->receiver_address,
-            ]);
-        }
+        $user = Auth::guard('web')->user();
 
         return view('shipment.search.result', [
             'shipment' => $shipmentData,

@@ -8,11 +8,14 @@ use App\Http\Controllers\Shipment\StatusController;
 use App\Http\Controllers\TopController;
 
 // Top
-Route::get('/guest', [TopController::class, 'index'])->name('top');
+Route::get('/customer/top', [TopController::class, 'index'])->name('customer.top');
 
 // Auth
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::get('/customer/login', [LoginController::class, 'customerIndex']);
+Route::post('/customer/login', [LoginController::class, 'customerLogin'])->name('customer.login');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/logout', [LoginController::class, function () {

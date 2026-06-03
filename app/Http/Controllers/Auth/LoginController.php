@@ -14,32 +14,67 @@ use Illuminate\View\View;
 class LoginController extends Controller
 {
     /**
-     * ログイン画面を表示
+     * 担当者ログイン画面を表示
      * @return RedirectResponse|View ログイン画面
      */
     public function index(): RedirectResponse|View
     {
-        if (Auth::check()) {
+        if (Auth::guard('web')->check()) {
             return redirect()->route('shipment.search.index');
         }
         return view('auth.login');
     }
 
     /**
-     * ログイン処理
+     * 顧客ログイン画面を表示
+     * @return RedirectResponse|View ログイン画面
+     */
+    public function customerIndex(): RedirectResponse|View
+    {
+        if (Auth::guard('customer')->check()) {
+            return redirect()->route('customer.top');
+        }
+        return view('auth.customerLogin');
+    }
+
+    /**
+     * 担当者ログイン処理
      * @param Request $request POSTで送られるリクエスト
      * @return RedirectResponse
      */
     public function login(Request $request): RedirectResponse
     {
+        Auth::guard('customer')->logout();
+
         $credentials = [
             'login_id' => $request->login_id,
             'password' => $request->login_password,
         ];
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->route('shipment.search.index');
+        }
+        return back()->withErrors(['login_error' => 'ログインIDまたはパスワードが違います。'])->withInput();
+    }
+
+    /**
+     * 顧客ログイン処理
+     * @param Request $request POSTで送られるリクエスト
+     * @return RedirectResponse
+     */
+    public function customerLogin(Request $request): RedirectResponse
+    {
+        Auth::guard('web')->logout();
+
+        $credentials = [
+            'login_id' => $request->login_id,
+            'password' => $request->login_password,
+        ];
+
+        if (Auth::guard('customer')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('customer.top');
         }
         return back()->withErrors(['login_error' => 'ログインIDまたはパスワードが違います。'])->withInput();
     }
@@ -51,9 +86,17 @@ class LoginController extends Controller
      */
     public function logout(Request $request): RedirectResponse
     {
-        Auth::logout();
+        $formerLogin = '';
+        if (Auth::guard('customer')->check()) {
+            Auth::guard('customer')->logout();
+            $formerLogin = 'customer';
+        } else {
+            Auth::guard('web')->logout();
+            $formerLogin = 'deliverer';
+        }
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login');
+
+        return $formerLogin === 'deliverer' ? redirect()->route('login') : redirect()-> route('customer.login');
     }
 }

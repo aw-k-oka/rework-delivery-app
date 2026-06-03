@@ -6,3 +6,8 @@ header {
 .user-name {
     margin-right: 20px;
 }
+
+.header-button-area button {
+    width: 100px;
+    margin-bottom: 16px;
+}

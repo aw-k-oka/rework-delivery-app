@@ -15,18 +15,15 @@ use Illuminate\View\View;
  */
 class SearchController extends Controller
 {
-    // ソート条件
-    private const TRACKING_NUMBER_DESC = 'tracking_number_desc';
-    private const TRACKING_NUMBER_ASC = 'tracking_number_asc';
-    private const UPDATE_DATE_DESC = 'update_date_desc';
-    private const UPDATE_DATE_ASC = 'update_date_asc';
-
     /**
      * ページ表示
-     * @return View 配送情報検索画面
+     * @return RedirectResponse|View 配送情報検索画面
      */
-    public function index(): View
+    public function index(): RedirectResponse|View
     {
+        if (!Auth::guard('customer')->check() && !Auth::guard('web')->check()) {
+            return redirect()->route('customer.login');
+        }
         return view('shipment.search.index');
     }
 
@@ -69,6 +66,10 @@ class SearchController extends Controller
      */
     public function result(Request $request): View|RedirectResponse
     {
+        if (!Auth::guard('customer')->check() && !Auth::guard('web')->check()) {
+            return redirect()->route('customer.login');
+        }
+
         $shipment = Shipment::with('staff')->firstWhere('tracking_number', $request->tracking_number);
 
         if (!$shipment) {

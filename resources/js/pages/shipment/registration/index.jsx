@@ -69,7 +69,7 @@ function RegistrationPage({
                 maxAddressLength={maxAddressLength}
             />
             <div className="button-area">
-                <button className="short-word" type="button" onClick={() => location.href = "/guest"}>戻る</button>
+                <button className="short-word" type="button" onClick={() => location.href = "/customer/top"}>戻る</button>
                 <button className="short-word" type="submit">確認</button>
             </div>
         </form>

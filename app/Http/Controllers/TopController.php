@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -12,17 +13,13 @@ class TopController extends Controller
 {
     /**
      * 顧客トップページを表示
-     * @return View トップページ
+     * @return RedirectResponse|View トップページ
      */
-    public function index(): View
+    public function index(): RedirectResponse|View
     {
-        // 担当者としてログインしていたらログアウト
-        if (Auth::check()) {
-            Auth::logout();
-            request()->session()->invalidate();
-            request()->session()->regenerateToken();
+        if (!Auth::guard('customer')->check()) {
+            return redirect()->route('customer.login');
         }
-
         return view('top');
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Shipment\StoreShipmentRequest;
 use App\Models\Shipment;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -20,10 +21,17 @@ class RegistrationController extends Controller
 
     /**
      * 依頼入力画面を表示
-     * @return View 配送依頼入力画面
+     * @return RedirectResponse|View 配送依頼入力画面
      */
-    public function index(): View
+    public function index(): RedirectResponse|View
     {
+        if (!Auth::guard('customer')->check() && !Auth::guard('web')->check()) {
+            return redirect()->route('customer.login');
+        }
+        if (Auth::guard('web')->check()) {
+            return redirect()->route('shipment.search.index');
+        }
+
         // 前回の依頼情報のセッションをクリア
         session()->forget([self::SHIPMENT_DATA, self::COMPLETED_TRACKING_NUMBER]);
 

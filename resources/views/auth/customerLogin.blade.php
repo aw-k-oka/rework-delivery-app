@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>配送アプリ：担当者ログイン</title>
+        <title>配送アプリ：顧客ログイン</title>
 
         <link rel="stylesheet" href="{{ asset('css/common/common.css') }}">
         <link rel="stylesheet" href="{{ asset('css/auth/login.css') }}">
@@ -14,7 +14,7 @@
             @error('login_error')
             <p class="error-msg">{{ $message }}</p>
             @enderror
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('customer.login') }}">
                 @csrf
                 <div class="user-row">
                     <label for="login_id">ID</label>

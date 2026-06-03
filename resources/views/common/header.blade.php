@@ -1,18 +1,22 @@
-<header class="header">
+<header>
     <div class="user-name">
         ユーザ：
-        @auth
-        {{ Auth::user()->name }}
-        @else
-        ゲスト
+        @auth('web')
+        {{ Auth::guard('web')->user()->name }}
+        @elseauth('customer')
+        {{ Auth::guard('customer')->user()->name }}
         @endauth
     </div>
-    @auth
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <button type="submit">ログアウト</button>
-    </form>
-    @else
-    <button onclick="location.href='{{ route('top') }}'">トップへ</button>
-    @endauth
+    <div class="header-button-area">
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit">ログアウト</button>
+        </form>
+        @auth('web')
+        <button onclick="location.href='{{ route('shipment.search.index') }}'">
+        @elseauth('customer')
+        <button onclick="location.href='{{ route('customer.top') }}'">
+        @endauth
+        トップへ</button>
+    </div>
 </header>

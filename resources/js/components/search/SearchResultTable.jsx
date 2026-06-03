@@ -16,13 +16,13 @@ export default function SearchResultTable({ shipments }) {
 
             <tbody>
                 {shipments.map((shipment) => (
-                    <tr key={shipment.tracking_number}>
-                        <td><a href={`/search/result?tracking_number=${shipment.tracking_number}`}>{shipment.tracking_number}</a></td>
-                        <td>{shipment.status}</td>
-                        <td>{shipment.staff_name ?? ''}</td>
-                        <td>{shipment.receiver_name}</td>
-                        <td>{shipment.receiver_address}</td>
-                    </tr>
+                <tr key={shipment.tracking_number}>
+                    <td><a href={`/search/result?tracking_number=${shipment.tracking_number}`}>{shipment.tracking_number}</a></td>
+                    <td>{shipment.status}</td>
+                    <td>{shipment.staff_name ?? ''}</td>
+                    <td>{shipment.receiver_name}</td>
+                    <td>{shipment.receiver_address}</td>
+                </tr>
                 ))}
             </tbody>
         </table>

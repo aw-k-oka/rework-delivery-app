@@ -48,21 +48,6 @@ class SearchController extends Controller
         if ($request->receiver_address) {
             $query->where('receiver_address', 'like', '%' . $request->receiver_address . '%');
         }
-        $sort = $request->sort;
-        switch ($sort) {
-            case self::UPDATE_DATE_ASC:
-                $query->orderBy('updated_at', 'asc');
-                break;
-            case self::UPDATE_DATE_DESC:
-                $query->orderBy('updated_at', 'desc');
-                break;
-            case self::TRACKING_NUMBER_ASC:
-                $query->orderBy('tracking_number', 'asc');
-                break;
-            case self::TRACKING_NUMBER_DESC:
-            default:
-                $query->orderBy('tracking_number', 'desc');
-        }
         $shipments = $query->with('staff')->get();
 
         return response()->json($shipments->map(function ($shipment) {
@@ -72,6 +57,7 @@ class SearchController extends Controller
                 'staff_name' => $shipment->staff?->name,
                 'receiver_name' => $shipment->receiver_name,
                 'receiver_address' => $shipment->receiver_address,
+                'updated_at' => $shipment->updated_at,
             ];
         }));
     }

@@ -72,6 +72,7 @@ class RegistrationController extends Controller
             abort(403);
         }
         $shipmentData['status'] = Shipment::STATUS_OFFICE;
+        $shipmentData['customer_id'] = Auth::guard('customer')->id();
         $shipment = Shipment::create($shipmentData);
         $shipment->generateTrackingNumber();
         $shipment->save();

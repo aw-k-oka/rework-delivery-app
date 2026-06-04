@@ -17,6 +17,9 @@ class TopController extends Controller
      */
     public function index(): RedirectResponse|View
     {
+        if (Auth::guard('deliverer')->check()) {
+            return redirect()->route('shipment.search.index');
+        }
         if (!Auth::guard('customer')->check()) {
             return redirect()->route('customer.login');
         }

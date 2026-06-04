@@ -25,10 +25,10 @@ class RegistrationController extends Controller
      */
     public function index(): RedirectResponse|View
     {
-        if (!Auth::guard('customer')->check() && !Auth::guard('web')->check()) {
+        if (!Auth::guard('customer')->check() && !Auth::guard('deliverer')->check()) {
             return redirect()->route('customer.login');
         }
-        if (Auth::guard('web')->check()) {
+        if (Auth::guard('deliverer')->check()) {
             return redirect()->route('shipment.search.index');
         }
 

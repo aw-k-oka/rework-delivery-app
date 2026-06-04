@@ -19,7 +19,7 @@ class LoginController extends Controller
      */
     public function index(): RedirectResponse|View
     {
-        if (Auth::guard('web')->check()) {
+        if (Auth::guard('deliverer')->check()) {
             return redirect()->route('shipment.search.index');
         }
         return view('auth.login');
@@ -51,7 +51,7 @@ class LoginController extends Controller
             'password' => $request->login_password,
         ];
 
-        if (Auth::guard('web')->attempt($credentials)) {
+        if (Auth::guard('deliverer')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->route('shipment.search.index');
         }
@@ -65,7 +65,7 @@ class LoginController extends Controller
      */
     public function customerLogin(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        Auth::guard('deliverer')->logout();
 
         $credentials = [
             'login_id' => $request->login_id,
@@ -91,7 +91,7 @@ class LoginController extends Controller
             Auth::guard('customer')->logout();
             $formerLogin = 'customer';
         } else {
-            Auth::guard('web')->logout();
+            Auth::guard('deliverer')->logout();
             $formerLogin = 'deliverer';
         }
         $request->session()->invalidate();

@@ -79,8 +79,8 @@ class SearchController extends Controller
         if (!$shipment) {
             abort(404);
         }
-        // 自身の依頼した配送情報しか閲覧できない
-        if ($shipment->customer_id !== Auth::guard('customer')->id()) {
+        // 顧客は自身の依頼した配送情報しか閲覧できない。担当者は全件閲覧可
+        if (!Auth::guard('web')->check() && $shipment->customer_id !== Auth::guard('customer')->id()) {
             abort(403);
         }
         $shipmentData = [

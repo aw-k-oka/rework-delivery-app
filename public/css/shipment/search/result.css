@@ -7,7 +7,9 @@
 
 .info-row {
     width: 250px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 20px;
     justify-content: space-between;
 }
 
@@ -20,3 +22,6 @@
     text-align: right;
 }
 
+.info-row span {
+    margin-left: 50px;
+}

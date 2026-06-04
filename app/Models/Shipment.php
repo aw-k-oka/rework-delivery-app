@@ -33,6 +33,7 @@ class Shipment extends Model
         'receiver_name',
         'receiver_address',
         'status',
+        'customer_id',
     ];
 
     /**
@@ -42,6 +43,15 @@ class Shipment extends Model
     public function staff(): BelongsTo
     {
         return $this->belongsTo(User::class, 'staff_id');
+    }
+
+    /**
+     * 外部キーを紐付け
+     * @return BelongsTo
+     */
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
     /**

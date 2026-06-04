@@ -39,6 +39,10 @@ class SearchController extends Controller
             abort(404);
         }
         $query = Shipment::query();
+
+        if (Auth::guard('customer')->check()) {
+            $query->where('customer_id', Auth::guard('customer')->id());
+        }
         if ($request->tracking_number) {
             $query->where('tracking_number', 'like', '%' . $request->tracking_number . '%');
         }
@@ -71,9 +75,9 @@ class SearchController extends Controller
         }
 
         $shipment = Shipment::with('staff')->firstWhere('tracking_number', $request->tracking_number);
-
-        if (!$shipment) {
-            return back()->withErrors(['not_found_error' => '該当する配送情報が見つかりません。']);
+        // 自身の依頼した配送情報しか閲覧できない
+        if ($shipment->customer_id !== Auth::guard('customer')->id()) {
+            abort(403);
         }
         $shipmentData = [
             'tracking_number' => $shipment->tracking_number,

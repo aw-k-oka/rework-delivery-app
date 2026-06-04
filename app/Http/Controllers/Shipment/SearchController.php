@@ -75,6 +75,10 @@ class SearchController extends Controller
         }
 
         $shipment = Shipment::with('staff')->firstWhere('tracking_number', $request->tracking_number);
+
+        if (!$shipment) {
+            abort(404);
+        }
         // 自身の依頼した配送情報しか閲覧できない
         if ($shipment->customer_id !== Auth::guard('customer')->id()) {
             abort(403);

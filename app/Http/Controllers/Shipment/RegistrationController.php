@@ -114,7 +114,7 @@ class RegistrationController extends Controller
      * 認証チェック
      * ログインしていない場合は顧客ログインにリダイレクト
      * 担当者で顧客系画面に遷移した場合は一覧画面にリダイレクト
-     * @return RedirectResponse|void
+     * @return RedirectResponse|null
      */
     private function checkAuth(): RedirectResponse|null
     {

@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Shipment\RegistrationController;
 use App\Http\Controllers\Shipment\SearchController;
 use App\Http\Controllers\Shipment\StatusController;
 use App\Http\Controllers\TopController;
+use Illuminate\Support\Facades\Route;
 
 // Top
 Route::get('delivery/customer/top', [TopController::class, 'index'])->name('customer.top');
@@ -44,9 +44,7 @@ Route::prefix('registration')
         Route::get('/', 'index')->name('index');
 
         Route::post('/confirm', 'confirm')->name('confirm');
-        Route::get('/confirm', function () {
-            abort(403);
-        });
+        Route::get('/confirm', 'rejectConfirmAccess');
 
         Route::post('/store', 'store')->name('store');
         Route::get('/store', function () {

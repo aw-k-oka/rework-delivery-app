@@ -25,11 +25,8 @@ class RegistrationController extends Controller
      */
     public function index(): RedirectResponse|View
     {
-        if (!Auth::guard('customer')->check() && !Auth::guard('deliverer')->check()) {
-            return redirect()->route('customer.login');
-        }
-        if (Auth::guard('deliverer')->check()) {
-            return redirect()->route('shipment.search.index');
+        if ($redirect = $this->checkAuth()) {
+            return $redirect;
         }
 
         // 前回の依頼情報のセッションをクリア
@@ -50,14 +47,26 @@ class RegistrationController extends Controller
     /**
      * 依頼確認画面を表示
      * @param StoreShipmentRequest $request バリデーション済みリクエスト
-     * @return View 依頼確認画面
+     * @return RedirectResponse|View 依頼確認画面
      */
-    public function confirm(StoreShipmentRequest $request): View
+    public function confirm(StoreShipmentRequest $request): RedirectResponse|View
     {
         $shipmentData = $request->validated();
         session([self::SHIPMENT_DATA => $shipmentData]);
 
         return view('shipment.registration.confirm', $shipmentData);
+    }
+
+    /**
+     * 依頼確認画面に不正な遷移
+     * @return RedirectResponse
+     */
+    public function rejectConfirmAccess(): RedirectResponse
+    {
+        if ($redirect = $this->checkAuth()) {
+            return $redirect;
+        }
+        abort(403);
     }
 
     /**
@@ -83,10 +92,13 @@ class RegistrationController extends Controller
 
     /**
      * 登録完了画面を表示
-     * @return View 登録完了画面
+     * @return RedirectResponse|View 登録完了画面
      */
-    public function complete(): View
+    public function complete(): RedirectResponse|View
     {
+        if ($redirect = $this->checkAuth()) {
+            return $redirect;
+        }
         $trackingNumber = session(self::COMPLETED_TRACKING_NUMBER);
 
         if (!$trackingNumber) {
@@ -96,5 +108,22 @@ class RegistrationController extends Controller
         return view('shipment.registration.complete', [
             'trackingNumber' => $trackingNumber,
         ]);
+    }
+
+    /**
+     * 認証チェック
+     * ログインしていない場合は顧客ログインにリダイレクト
+     * 担当者で顧客系画面に遷移した場合は一覧画面にリダイレクト
+     * @return RedirectResponse|void
+     */
+    private function checkAuth(): RedirectResponse|null
+    {
+        if (!Auth::guard('customer')->check() && !Auth::guard('deliverer')->check()) {
+            return redirect()->route('customer.login');
+        }
+        if (Auth::guard('deliverer')->check()) {
+            return redirect()->route('shipment.search.index');
+        }
+        return null;
     }
 }

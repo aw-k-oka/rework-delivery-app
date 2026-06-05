@@ -21,8 +21,8 @@ class SearchController extends Controller
      */
     public function index(): RedirectResponse|View
     {
-        if (!Auth::guard('customer')->check() && !Auth::guard('deliverer')->check()) {
-            return redirect()->route('customer.login');
+        if ($redirect = $this->checkAuth()) {
+            return $redirect;
         }
         return view('shipment.search.index');
     }
@@ -70,8 +70,8 @@ class SearchController extends Controller
      */
     public function result(Request $request): View|RedirectResponse
     {
-        if (!Auth::guard('customer')->check() && !Auth::guard('deliverer')->check()) {
-            return redirect()->route('customer.login');
+        if ($redirect = $this->checkAuth()) {
+            return $redirect;
         }
 
         $shipment = Shipment::with('staff')->firstWhere('tracking_number', $request->tracking_number);
@@ -102,5 +102,17 @@ class SearchController extends Controller
                 'id' => $user->id
             ] : null,
         ]);
+    }
+
+    /**
+     * ログインしていない場合顧客ログインにリダイレクト
+     * @return RedirectResponse|null
+     */
+    private function checkAuth(): RedirectResponse|null
+    {
+        if (!Auth::guard('customer')->check() && !Auth::guard('deliverer')->check()) {
+            return redirect()->route('customer.login');
+        }
+        return null;
     }
 }

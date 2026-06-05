@@ -27,6 +27,7 @@ if (element) {
             maxAddressLength={Number(data.maxAddressLength)}
             initialValues={parseData(data.old)}
             errors={parseData(data.errors)}
+            backUrl={data.backUrl}
         />
     );
 }
@@ -39,6 +40,7 @@ if (element) {
  * @param {number} maxAddressLength 住所の最大文字数
  * @param {Object} initialValues　入力フォームの初期値
  * @param {Object} errors バリデーションエラー
+ * @param {string} backUrl 戻るボタン用URL
  * @returns {React.JSX.Element}
  */
 function RegistrationPage({
@@ -48,6 +50,7 @@ function RegistrationPage({
     maxAddressLength,
     initialValues,
     errors,
+    backUrl
 }) {
     const [formData, setFormData] = React.useState(initialValues);
     const handleChange = (event) => {
@@ -79,7 +82,7 @@ function RegistrationPage({
                 maxAddressLength={maxAddressLength}
             />
             <div className="button-area">
-                <button type="button" onClick={() => location.href = "/customer/top"}>戻る</button>
+                <button type="button" onClick={() => location.href = backUrl}>戻る</button>
                 <button type="submit">確認</button>
             </div>
         </form>

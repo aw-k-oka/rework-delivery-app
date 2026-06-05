@@ -22,6 +22,7 @@
             data-max-address-length="{{ $maxAddressLength }}"
             data-old='@json($oldData)'
             data-errors='@json($errors->toArray())'
+            data-back-url="{{ route('customer.top') }}"
         ></div>
     </body>
 </html>

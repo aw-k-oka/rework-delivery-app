@@ -40,11 +40,11 @@
                 <input type="hidden" name="client_address" value="{{ $client_address }}">
                 <input type="hidden" name="receiver_name" value="{{ $receiver_name }}">
                 <input type="hidden" name="receiver_address" value="{{ $receiver_address }}">
-                <button type="submit" class="short-word">戻る</button>
+                <button type="submit">戻る</button>
             </form>
             <form method="POST" action="{{ route('shipment.registration.store') }}">
                 @csrf
-                <button type="submit" class="short-word">登録</button>
+                <button type="submit">登録</button>
             </form>
         </div>
     </body>

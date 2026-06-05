@@ -1,6 +1,6 @@
 .button-area {
     display: grid;
-    grid-template-columns: repeat(3, 90px);
+    grid-template-columns: repeat(3, 80px);
     margin-top: 24px;
     gap: 16px;
 }

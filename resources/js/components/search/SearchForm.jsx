@@ -57,7 +57,7 @@ export default function SearchForm({ searchUrl, setShipments }) {
             <input id="tracking_number" type="text" name="tracking_number" value={formData.tracking_number} onChange={handleChange} />
             <label htmlFor="receiver_address">届け先住所</label>
             <input id="receiver_address" type="text" name="receiver_address" value={formData.receiver_address} onChange={handleChange} />
-            <button className="short-word search-button" type="button" onClick={search}>検索</button>
+            <button className="search-button" type="button" onClick={search}>検索</button>
         </div>
     );
 };

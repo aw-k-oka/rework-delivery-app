@@ -1,5 +1,3 @@
-import StatusButton from "./StatusButton";
-
 /**
  * 配送ステータス
  */
@@ -75,5 +73,11 @@ export default function ShipmentStatusActions({
                 </>
             )}
         </div>
+    );
+}
+
+function StatusButton({ onClick, disabledFlg, label }) {
+    return (
+        <button type="button" onClick={onClick} disabled={disabledFlg}>{label}</button>
     );
 }

@@ -7,7 +7,6 @@ export default defineConfig({
         laravel([
             'resources/css/app.css',
             'resources/js/pages/shipment/registration/index.jsx',
-            'resources/js/pages/shipment/registration/complete.jsx',
             'resources/js/pages/shipment/search/index.jsx',
             'resources/js/pages/shipment/search/result.jsx',
         ]),

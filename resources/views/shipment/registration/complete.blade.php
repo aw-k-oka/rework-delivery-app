@@ -3,14 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        @viteReactRefresh
-        @vite('resources/js/pages/shipment/registration/complete.jsx')
         <title>配送アプリ：依頼完了</title>
 
         <link rel="stylesheet" href="{{ asset('css/common/header.css') }}">
     </head>
     <body>
         @include('common.header')
-        <div id="complete-message" data-tracking-number="{{ $trackingNumber }}"></div>
+        <p>配送番号：{{ $trackingNumber }}にて承りました</p>
     </body>
 </html>

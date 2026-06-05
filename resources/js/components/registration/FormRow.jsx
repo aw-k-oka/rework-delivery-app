@@ -1,3 +1,14 @@
+/**
+ * 1項目分の入力フォーム
+ * @param {string} label 項目名
+ * @param {string} fieldLabel 大項目名
+ * @param {string} name inputタグのname属性の値
+ * @param {string} value 入力値の初期値
+ * @param {string} error バリデーションエラー時のメッセージ
+ * @param {number} maxLength 最大文字数
+ * @param {Function} onChange 入力時に発火される関数
+ * @returns {React.JSX.Element}
+ */
 export default function FormRow({
     label,
     fieldLabel,

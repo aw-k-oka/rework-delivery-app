@@ -31,6 +31,16 @@ if (element) {
     );
 }
 
+/**
+ * 登録画面を表示
+ * @param {string} confirmUrl 確認画面遷移用URL
+ * @param {string} csrfToken
+ * @param {number} maxNameLength 氏名の最大文字数
+ * @param {number} maxAddressLength 住所の最大文字数
+ * @param {Object} initialValues　入力フォームの初期値
+ * @param {Object} errors バリデーションエラー
+ * @returns {React.JSX.Element}
+ */
 function RegistrationPage({
     confirmUrl,
     csrfToken,

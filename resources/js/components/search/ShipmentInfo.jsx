@@ -1,6 +1,11 @@
 import InfoSection from "./InfoSection";
 import InfoRow from "./InfoRow";
 
+/**
+ * 配送情報詳細表示
+ * @param {Object} shipment 配送情報
+ * @returns {React.JSX.Element}
+ */
 export default function ShipmentInfo({ shipment }) {
     return (
         <>

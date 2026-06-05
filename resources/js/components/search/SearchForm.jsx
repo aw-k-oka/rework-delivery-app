@@ -1,5 +1,11 @@
 import React from 'react';
 
+/**
+ * 検索欄
+ * @param {string} searchUrl 検索用URL
+ * @param {Function} setShipments 検索結果更新関数
+ * @returns {React.JSX.Element}
+ */
 export default function SearchForm({ searchUrl, setShipments }) {
     // フォームの入力値
     const [formData, setFormData] = React.useState({

@@ -1,9 +1,19 @@
-/**
- * 配送ステータス
- */
+// 配送ステータス
 const STATUS_OFFICE = "営業所";
 const STATUS_DELIVERING = "配送中";
 
+/**
+ * 配送ステータス変更
+ * @param {Object} shipment 配送情報
+ * @param {Object} user 担当者
+ * @param {string} backUrl 戻るURL
+ * @param {string} deliverUrl 配送ボタンの非同期通信用URL
+ * @param {string} returnUrl 持ち帰りボタンの非同期通信用URL
+ * @param {string} completeUrl 配達済みボタンの非同期通信用URL
+ * @param {string} csrfToken
+ * @param {Function} setShipmentData 配送ステータス更新関数
+ * @returns {React.JSX.Element}
+ */
 export default function ShipmentStatusActions({
     shipment,
     user,
@@ -76,6 +86,13 @@ export default function ShipmentStatusActions({
     );
 }
 
+/**
+ * ステータス変更ボタン
+ * @param {Function} onClick クリック時に発火する関数
+ * @param {boolean} disabledFlg ボタンの押下可否
+ * @param {string} label ボタン名称
+ * @returns {React.JSX.Element}
+ */
 function StatusButton({ onClick, disabledFlg, label }) {
     return (
         <button type="button" onClick={onClick} disabled={disabledFlg}>{label}</button>

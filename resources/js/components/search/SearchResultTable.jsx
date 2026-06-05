@@ -1,14 +1,23 @@
 import React from 'react';
 
 /** 一覧画面の表の1セル最大文字数 */
-const maxTextLength = 10;
+const MAX_TEXT_LENGTH = 10;
 
+/**
+ * 指定文字数を超えた文字列を省略「...」表示
+ * @param {string} text 対象文字列
+ * @returns {string}
+ */
+const truncate = (text) => {
+    return text.length > MAX_TEXT_LENGTH ? text.slice(0, MAX_TEXT_LENGTH) + '...' : text;
+};
+
+/**
+ * 検索結果の一覧表示
+ * @param {Object[]} shipments 配送情報一覧
+ * @returns {React.JSX.Element}
+ */
 export default function SearchResultTable({ shipments }) {
-    // 10文字を超えた分は「...」で置き換え
-    const truncate = (text) => {
-        return text.length > maxTextLength ? text.slice(0, maxTextLength) + '...' : text;
-    };
-
     return (
         <table className="search-result">
             <thead className="table-header">

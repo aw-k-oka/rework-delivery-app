@@ -24,7 +24,7 @@ if (element) {
 /**
  * 配送情報検索ページ
  * @param {string} searchUrl 検索URL
- * @returns
+ * @returns {React.JSX.Element}
  */
 function SearchPage({ searchUrl }) {
     // 検索結果

@@ -33,6 +33,17 @@ if (element) {
     );
 }
 
+/**
+ * 検索結果の詳細表示
+ * @param {Object} shipment 配送情報
+ * @param {Object|null} user 担当者。顧客の場合はnull
+ * @param {string} backUrl 戻るボタン用URL
+ * @param {string} returnUrl 持ち帰りボタンの非同期通信用URL
+ * @param {string} deliverUrl 配送ボタンの非同期通信用URL
+ * @param {string} completeUrl 配達済みボタンの非同期通信用URL
+ * @param {string} csrfToken
+ * @returns {React.JSX.Element}
+ */
 function SearchResultPage({
     shipment,
     user,

@@ -1,0 +1,10 @@
+.button-area {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.button-area button {
+    width: 170px;
+}

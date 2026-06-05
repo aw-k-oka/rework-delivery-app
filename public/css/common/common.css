@@ -1,0 +1,8 @@
+section {
+    margin-bottom: 24px;
+}
+
+.error-msg {
+    color: red;
+    font-size: small;
+}

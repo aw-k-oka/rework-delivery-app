@@ -1,0 +1,17 @@
+label {
+    padding-right: 20px;
+}
+
+.form-area {
+    width: 300px;
+}
+
+.user-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-area {
+    margin-top: 24px;
+    text-align: right;
+}

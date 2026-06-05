@@ -1,0 +1,16 @@
+.button-area {
+    display: flex;
+    gap: 160px;
+}
+
+.button-area button {
+    width: 80px;
+}
+
+.form-row {
+    display: flex;
+}
+
+.form-label {
+    width: 160px;
+}

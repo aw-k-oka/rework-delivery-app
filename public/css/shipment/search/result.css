@@ -1,0 +1,27 @@
+.button-area {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    margin-top: 24px;
+    gap: 16px;
+}
+
+.info-row {
+    width: 250px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.info-row label {
+    width: 64px;
+    display: inline-block;
+}
+
+.info-row .info-label {
+    text-align: right;
+}
+
+.info-row span {
+    margin-left: 50px;
+}

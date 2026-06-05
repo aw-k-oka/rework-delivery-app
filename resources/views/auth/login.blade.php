@@ -14,7 +14,7 @@
             @error('login_error')
             <p class="error-msg">{{ $message }}</p>
             @enderror
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('staff.login') }}">
                 @csrf
                 <div class="user-row">
                     <label for="login_id">ID</label>

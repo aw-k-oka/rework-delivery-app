@@ -17,7 +17,7 @@ class LoginController extends Controller
      * 担当者ログイン画面を表示
      * @return RedirectResponse|View ログイン画面
      */
-    public function index(): RedirectResponse|View
+    public function staffIndex(): RedirectResponse|View
     {
         if (Auth::guard('deliverer')->check()) {
             return redirect()->route('shipment.search.index');
@@ -42,7 +42,7 @@ class LoginController extends Controller
      * @param Request $request POSTで送られるリクエスト
      * @return RedirectResponse
      */
-    public function login(Request $request): RedirectResponse
+    public function staffLogin(Request $request): RedirectResponse
     {
         Auth::guard('customer')->logout();
 
@@ -97,6 +97,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return $formerLogin === 'deliverer' ? redirect()->route('login') : redirect()-> route('customer.login');
+        return $formerLogin === 'deliverer' ? redirect()->route('staff.login') : redirect()-> route('customer.login');
     }
 }

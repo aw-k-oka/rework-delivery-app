@@ -8,11 +8,11 @@ use App\Http\Controllers\TopController;
 use Illuminate\Support\Facades\Route;
 
 // Top
-Route::get('delivery/customer/top', [TopController::class, 'index'])->name('customer.top');
+Route::get('/delivery/customer/top', [TopController::class, 'index'])->name('customer.top');
 
 // Auth
-Route::get('/login', [LoginController::class, 'index']);
-Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/staff/login', [LoginController::class, 'staffIndex']);
+Route::post('/staff/login', [LoginController::class, 'staffLogin'])->name('staff.login');
 
 Route::get('/delivery/login', [LoginController::class, 'customerIndex']);
 Route::post('/delivery/login', [LoginController::class, 'customerLogin'])->name('customer.login');

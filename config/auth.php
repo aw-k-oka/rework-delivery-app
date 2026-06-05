@@ -16,7 +16,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'deliverer'),
+        'guard' => env('AUTH_GUARD', 'staff'),
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     ],
 
@@ -38,7 +38,7 @@ return [
     */
 
     'guards' => [
-        'deliverer' => [
+        'staff' => [
             'driver' => 'session',
             'provider' => 'users',
         ],

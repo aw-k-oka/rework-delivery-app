@@ -118,10 +118,10 @@ class RegistrationController extends Controller
      */
     private function checkAuth(): RedirectResponse|null
     {
-        if (!Auth::guard('customer')->check() && !Auth::guard('deliverer')->check()) {
+        if (!Auth::guard('customer')->check() && !Auth::guard('staff')->check()) {
             return redirect()->route('customer.login');
         }
-        if (Auth::guard('deliverer')->check()) {
+        if (Auth::guard('staff')->check()) {
             return redirect()->route('shipment.search.index');
         }
         return null;

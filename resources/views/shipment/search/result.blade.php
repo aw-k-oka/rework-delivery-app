@@ -19,7 +19,7 @@
             data-shipment='@json($shipment)'
             data-back-url="{{ route('shipment.search.index') }}"
             data-user='@json($user)'
-            @auth('deliverer')
+            @auth('staff')
             data-return-url="{{ route('shipment.status.backToOffice') }}"
             data-deliver-url="{{ route('shipment.status.deliver') }}"
             data-complete-url="{{ route('shipment.status.complete') }}"

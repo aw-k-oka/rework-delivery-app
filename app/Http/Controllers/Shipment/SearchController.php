@@ -80,7 +80,7 @@ class SearchController extends Controller
             abort(404);
         }
         // 顧客は自身の依頼した配送情報しか閲覧できない。担当者は全件閲覧可
-        if (!Auth::guard('deliverer')->check() && $shipment->customer_id !== Auth::guard('customer')->id()) {
+        if (!Auth::guard('staff')->check() && $shipment->customer_id !== Auth::guard('customer')->id()) {
             abort(403);
         }
         $shipmentData = [
@@ -94,7 +94,7 @@ class SearchController extends Controller
             'receiver_name' => $shipment->receiver_name,
             'receiver_address' => $shipment->receiver_address,
         ];
-        $user = Auth::guard('deliverer')->user();
+        $user = Auth::guard('staff')->user();
 
         return view('shipment.search.result', [
             'shipment' => $shipmentData,
@@ -110,7 +110,7 @@ class SearchController extends Controller
      */
     private function checkAuth(): RedirectResponse|null
     {
-        if (!Auth::guard('customer')->check() && !Auth::guard('deliverer')->check()) {
+        if (!Auth::guard('customer')->check() && !Auth::guard('staff')->check()) {
             return redirect()->route('customer.login');
         }
         return null;

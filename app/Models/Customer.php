@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Customer extends Authenticatable
 {
     /**
-     * 一括代入許可
+     * 一括代入許可カラム
      */
     protected $fillable = [
         'name',

@@ -19,7 +19,7 @@ class LoginController extends Controller
      */
     public function staffIndex(): RedirectResponse|View
     {
-        if (Auth::guard('deliverer')->check()) {
+        if (Auth::guard('staff')->check()) {
             return redirect()->route('shipment.search.index');
         }
         return view('auth.login');
@@ -51,7 +51,7 @@ class LoginController extends Controller
             'password' => $request->login_password,
         ];
 
-        if (Auth::guard('deliverer')->attempt($credentials)) {
+        if (Auth::guard('staff')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->route('shipment.search.index');
         }
@@ -65,7 +65,7 @@ class LoginController extends Controller
      */
     public function customerLogin(Request $request): RedirectResponse
     {
-        Auth::guard('deliverer')->logout();
+        Auth::guard('staff')->logout();
 
         $credentials = [
             'login_id' => $request->login_id,
@@ -91,12 +91,12 @@ class LoginController extends Controller
             Auth::guard('customer')->logout();
             $formerLogin = 'customer';
         } else {
-            Auth::guard('deliverer')->logout();
-            $formerLogin = 'deliverer';
+            Auth::guard('staff')->logout();
+            $formerLogin = 'staff';
         }
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return $formerLogin === 'deliverer' ? redirect()->route('staff.login') : redirect()-> route('customer.login');
+        return $formerLogin === 'staff' ? redirect()->route('staff.login') : redirect()-> route('customer.login');
     }
 }

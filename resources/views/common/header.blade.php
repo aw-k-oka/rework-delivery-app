@@ -1,8 +1,8 @@
 <header>
     <div class="user-name">
         ユーザ：
-        @auth('deliverer')
-        {{ Auth::guard('deliverer')->user()->name }}
+        @auth('staff')
+        {{ Auth::guard('staff')->user()->name }}
         @elseauth('customer')
         {{ Auth::guard('customer')->user()->name }}
         @endauth
@@ -12,7 +12,7 @@
             @csrf
             <button type="submit">ログアウト</button>
         </form>
-        @auth('deliverer')
+        @auth('staff')
         <button onclick="location.href='{{ route('shipment.search.index') }}'">
         @elseauth('customer')
         <button onclick="location.href='{{ route('customer.top') }}'">
